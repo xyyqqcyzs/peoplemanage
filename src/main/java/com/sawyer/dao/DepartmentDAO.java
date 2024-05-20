@@ -1,16 +1,13 @@
 package com.sawyer.dao;
 
 import com.sawyer.entity.Department;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
+import com.sawyer.entity.Emp;
 
 import java.util.List;
-@Repository
-@Component
 public interface DepartmentDAO {
-    List<Department> findAll();
+    List<Emp> findAll();
 
-    void add(Department dep);
+    void save(Department dep);
 
     void delete(int id);
 

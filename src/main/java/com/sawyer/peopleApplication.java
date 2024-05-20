@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @MapperScan(value = "com.sawyer.dao")
 public class peopleApplication {
+
     public static void main(String[] args) {
         SpringApplication.run(peopleApplication.class, args);
     }

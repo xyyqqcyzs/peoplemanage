@@ -1,16 +1,12 @@
 package com.sawyer.swagger.controller;
 
-import com.sawyer.entity.LoginRequest;
-
 import com.sawyer.entity.User;
 import com.sawyer.service.UserService;
 import com.sawyer.utils.ValidateImageCodeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.imageio.ImageIO;
@@ -21,6 +17,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 
+/**
+ * @author sawyer
+ */
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -28,12 +27,38 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
+    /**
+     * 注册方法
+     *
+     * @param user
+     * @param code
+     * @param session
+     * @return
+     */
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody User user) {
+    /*public String register(User user, String code, HttpSession session) {
+        String sessionCode = (String) session.getAttribute("code");
+        if (sessionCode.equalsIgnoreCase(code)) {
             userService.register(user);
-            return ResponseEntity.ok("注册成功");
+            return "redirect:/index";
+        } else {
+            return "redirect:/toRegister";
+        }
+    }*/
+    public String register(User user) {
+            userService.register(user);
+            return "redirect:/index";
     }
 
+
+    /**
+     * 生成验证码
+     *
+     * @param session
+     * @param response
+     * @throws IOException
+     */
     @GetMapping("/code")
     public void getVerification(HttpSession session, HttpServletResponse response) throws IOException {
         //生成验证码
@@ -46,15 +71,14 @@ public class UserController {
         ImageIO.write(image, "png", os);
     }
 
+
     @PostMapping(value = "/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
-        String account = loginRequest.getAccount();
-        String password = loginRequest.getPassword();
-        User login = userService.login(account,password);
+    public String login(String account, String password) {
+        User login = userService.login(account, password);
         if (login != null) {
-            return ResponseEntity.ok("登陆成功");
+            return "redirect:/emp/findAll";
         } else {
-            return ResponseEntity.ok("登陆失败");
+            return "redirect:/index";
         }
     }
 

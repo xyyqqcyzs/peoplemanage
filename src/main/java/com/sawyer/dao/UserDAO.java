@@ -5,5 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 public interface UserDAO {
     void save(User user);
-    User login(@Param("account") String account, @Param("password") String password);
+
+    //在mybatis中传递多个参数需要参数的绑定
+    User login(@Param("account") String username, @Param("password") String password);
 }

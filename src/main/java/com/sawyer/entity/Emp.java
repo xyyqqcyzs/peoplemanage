@@ -1,4 +1,5 @@
 package com.sawyer.entity;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,10 +12,10 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Department {
-    private int depID;
-    private String depPhone;
-    private String depName;
-    private Date createDate;
-
+public class Emp {
+    private String id;
+    private String name;
+    private Double salary;
+    private Integer age;
+    private Date bir;
 }
