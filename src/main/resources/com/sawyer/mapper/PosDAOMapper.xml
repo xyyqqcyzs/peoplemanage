@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sawyer.dao.PositionDAO">
+
+    <!--    查询所有-->
+    <select id="findAll" resultType="Position">
+        select pos_ID, pos_name, creat_date, dep_ID, detail from `position`
+    </select>
+
+    <!--    添加岗位-->
+    <insert id="add" parameterType="Position">
+        insert into `position`(pos_ID, pos_name, creat_date, dep_ID, detail) values (#{pos_ID}, #{pos_name}, #{creat_date}, #{dep_ID}, #{detail})
+    </insert>
+
+    <!--    删除岗位-->
+    <delete id="delete" parameterType="int">
+        delete from `position` where pos_ID = #{pos_ID}
+    </delete>
+
+    <!--    根据ID查询岗位-->
+    <select id="findbyID" parameterType="int" resultType="Position">
+        select pos_ID, pos_name, creat_date, dep_ID, detail from `position` where pos_ID = #{pos_ID}
+    </select>
+
+
+
+    <select id="findbydep" parameterType="int" resultType="Position">
+        select pos_ID, pos_name, creat_date, dep_ID, detail from `position` where dep_ID = #{dep_ID}
+    </select>
+
+    <!--    修改岗位-->
+    <update id="update" parameterType="Position">
+        update `position`
+        <set>
+            <if test="pos_name != null">pos_name = #{pos_name},</if>
+            <if test="creat_date != null">creat_date = #{creat_date},</if>
+            <if test="dep_ID != null">dep_ID = #{dep_ID},</if>
+            <if test="detail != null">detail = #{detail},</if>
+        </set>
+        where pos_ID = #{pos_ID}
+    </update>
+</mapper>
