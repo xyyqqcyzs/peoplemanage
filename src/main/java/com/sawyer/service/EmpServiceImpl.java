@@ -1,14 +1,13 @@
 package com.sawyer.service;
 
 import com.sawyer.dao.EmpDAO;
-import com.sawyer.entity.Emp;
+import com.sawyer.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @Transactional
@@ -19,29 +18,40 @@ public class EmpServiceImpl implements EmpService {
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
-    public List<Emp> findAll() {
+    public List<Employee> findAll() {
         return empDAO.findAll();
     }
 
     @Override
-    public void save(Emp emp) {
-        emp.setId(UUID.randomUUID().toString());
-        empDAO.save(emp);
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public List<Employee> findbypos(int pos_id) {
+        return empDAO.findbypos(pos_id);
     }
 
     @Override
-    public void delete(String id) {
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public List<Employee> findbydep(int dep_id) {
+        return empDAO.findbydep(dep_id);
+    }
+
+    @Override
+    public void add(Employee emp) {
+        empDAO.add(emp);
+    }
+
+    @Override
+    public void delete(int id) {
         empDAO.delete(id);
     }
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
-    public Emp find(String id) {
-        return empDAO.find(id);
+    public Employee findbyID(int id) {
+        return empDAO.findbyID(id);
     }
 
     @Override
-    public void update(Emp emp) {
+    public void update(Employee emp) {
         empDAO.update(emp);
     }
 }

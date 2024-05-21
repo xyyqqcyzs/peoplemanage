@@ -14,6 +14,8 @@ public class Position {
     private String pos_name;
     private String creat_date;
     private String dep_ID;
+
+    private String dep_name;
     private String detail;
 
 }

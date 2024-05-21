@@ -1,17 +1,21 @@
 package com.sawyer.dao;
 
-import com.sawyer.entity.Emp;
+import com.sawyer.entity.Employee;
 
 import java.util.List;
 
 public interface EmpDAO {
-    List<Emp> findAll();
+    List<Employee> findAll();
 
-    void save(Emp emp);
+    List<Employee> findbypos(int pos_ID);
 
-    void delete(String id);
+    List<Employee> findbydep(int dep_ID);
 
-    Emp find(String id);
+    void add(Employee emp);
 
-    void update(Emp emp);
+    void delete(int id);
+
+    Employee findbyID(int id);
+
+    void update(Employee emp);
 }

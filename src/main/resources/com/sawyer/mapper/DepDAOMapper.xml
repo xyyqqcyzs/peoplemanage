@@ -4,7 +4,7 @@
 
     <!--    查询所有-->
     <select id="findAll" resultType="Department">
-        select dep_ID, dep_name, dep_phone, creat_date,detail from department
+        select dep_ID, dep_name, creat_date, dep_ID, detail from `department`
     </select>
 
     <!--    添加部门-->
