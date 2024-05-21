@@ -2,8 +2,6 @@ package com.sawyer.service;
 
 import com.sawyer.entity.Department;
 
-import com.sawyer.entity.Emp;
-
 import java.util.List;
 public interface DepService {
     List<Department> findAll();
