@@ -12,9 +12,9 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 public class Department {
-    private int depID;
-    private String depPhone;
-    private String depName;
-    private Date createDate;
+    private int dep_ID;
+    private String dep_phone;
+    private String dep_name;
+    private String creat_date;
 
 }
