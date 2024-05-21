@@ -4,13 +4,12 @@
 
     <!--    查询所有-->
     <select id="findAll" resultType="Position">
-        select pos.pos_ID, pos.pos_name, pos.creat_date, pos.dep_ID,dep.dep_name, pos.detail
-        from `position` pos JOIN department dep ON pos.dep_ID = dep.dep_ID
+        select pos_ID, pos_name, creat_date, dep_ID, detail from `position`
     </select>
 
     <!--    添加岗位-->
     <insert id="add" parameterType="Position">
-        insert into `position`(pos_ID, pos_name, creat_date, dep_ID, detail) values (#{pos_ID}, #{pos_name}, #{creat_date}, #{dep_ID},#{detail})
+        insert into `position`(pos_ID, pos_name, creat_date, dep_ID, detail) values (#{pos_ID}, #{pos_name}, #{creat_date}, #{dep_ID}, #{detail})
     </insert>
 
     <!--    删除岗位-->
@@ -20,15 +19,13 @@
 
     <!--    根据ID查询岗位-->
     <select id="findbyID" parameterType="int" resultType="Position">
-        select pos.pos_ID, pos.pos_name, pos.creat_date, pos.dep_ID,dep.dep_name, pos.detail from `position` pos JOIN department dep ON pos.dep_ID = dep.dep_ID
-        where pos.pos_ID = #{pos_ID}
+        select pos_ID, pos_name, creat_date, dep_ID, detail from `position` where pos_ID = #{pos_ID}
     </select>
 
 
 
     <select id="findbydep" parameterType="int" resultType="Position">
-        select pos.pos_ID, pos.pos_name, pos.creat_date, pos.dep_ID,dep.dep_name, pos.detail from `position` pos JOIN department dep ON pos.dep_ID = dep.dep_ID
-        where pos.dep_ID = #{dep_ID}
+        select pos_ID, pos_name, creat_date, dep_ID, detail from `position` where dep_ID = #{dep_ID}
     </select>
 
     <!--    修改岗位-->
