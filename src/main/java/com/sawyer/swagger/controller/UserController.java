@@ -1,6 +1,7 @@
 package com.sawyer.swagger.controller;
 
-import com.sawyer.entity.LoginResponse;
+import com.sawyer.entity.LoginRequest;
+
 import com.sawyer.entity.User;
 import com.sawyer.service.UserService;
 import com.sawyer.utils.ValidateImageCodeUtils;
@@ -32,37 +33,15 @@ public class UserController {
     private UserService userService;
 
 
-    /**
-     * 注册方法
-     *
-     * @param user
-     * @param code
-     * @param session
-     * @return
-     */
+
     @PostMapping("/register")
-    /*public String register(User user, String code, HttpSession session) {
-        String sessionCode = (String) session.getAttribute("code");
-        if (sessionCode.equalsIgnoreCase(code)) {
+    public ResponseEntity<String> register(User user) {
             userService.register(user);
-            return "redirect:/index";
-        } else {
-            return "redirect:/toRegister";
-        }
-    }*/
-    public String register(User user) {
-            userService.register(user);
-            return "注册成功";
+            return ResponseEntity.status(HttpStatus.CREATED).body("注册成功");
     }
 
 
-    /**
-     * 生成验证码
-     *
-     * @param session
-     * @param response
-     * @throws IOException
-     */
+
     @GetMapping("/code")
     public void getVerification(HttpSession session, HttpServletResponse response) throws IOException {
         //生成验证码
@@ -86,14 +65,14 @@ public class UserController {
         }
     }*/
     @PostMapping(value = "/login")
-    public ResponseEntity<LoginResponse> login(String account, String password) {
-        User login = userService.login(account, password);
+    public String login(@RequestBody LoginRequest loginRequest) {
+        String account = loginRequest.getAccount();
+        String password = loginRequest.getPassword();
+        User login = userService.login(account,password);
         if (login != null) {
-            LoginResponse response = new LoginResponse("登录成功", login);
-            return ResponseEntity.ok(response);
+            return "登陆成功";
         } else {
-            LoginResponse response = new LoginResponse("登录失败", null);
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+            return "登陆时报";
         }
     }
 
