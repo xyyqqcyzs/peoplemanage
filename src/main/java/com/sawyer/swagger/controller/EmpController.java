@@ -2,7 +2,6 @@ package com.sawyer.swagger.controller;
 
 
 import com.sawyer.entity.Employee;
-import com.sawyer.entity.Position;
 import com.sawyer.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,7 +35,7 @@ public class EmpController {
     @GetMapping(value = "/findbydep")
     @ResponseBody
     public List<Employee> findbydep(int dep_ID) {
-        List<Employee> allList = empService.findbypos(dep_ID);
+        List<Employee> allList = empService.findbydep(dep_ID);
         return allList;
     }
     //find和findAll不是重定向，直接到跳转页面，并且直接跳转classpath下template自带/

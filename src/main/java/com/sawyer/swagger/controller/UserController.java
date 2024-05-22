@@ -1,12 +1,16 @@
 package com.sawyer.swagger.controller;
 
+import com.sawyer.entity.LoginResponse;
 import com.sawyer.entity.User;
 import com.sawyer.service.UserService;
 import com.sawyer.utils.ValidateImageCodeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.imageio.ImageIO;
@@ -48,7 +52,7 @@ public class UserController {
     }*/
     public String register(User user) {
             userService.register(user);
-            return "redirect:/index";
+            return "注册成功";
     }
 
 
@@ -72,13 +76,24 @@ public class UserController {
     }
 
 
-    @PostMapping(value = "/login")
+    /*@PostMapping(value = "/login")
     public String login(String account, String password) {
         User login = userService.login(account, password);
         if (login != null) {
-            return "redirect:/emp/findAll";
+            return "登陆成功";
         } else {
-            return "redirect:/index";
+            return "登陆失败";
+        }
+    }*/
+    @PostMapping(value = "/login")
+    public ResponseEntity<LoginResponse> login(String account, String password) {
+        User login = userService.login(account, password);
+        if (login != null) {
+            LoginResponse response = new LoginResponse("登录成功", login);
+            return ResponseEntity.ok(response);
+        } else {
+            LoginResponse response = new LoginResponse("登录失败", null);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
     }
 
