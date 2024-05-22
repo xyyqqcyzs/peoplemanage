@@ -1,6 +1,6 @@
 package com.sawyer.swagger.controller;
 
-import com.sawyer.entity.LoginRequest;
+import com.sawyer.entity.LoginResponse;
 import com.sawyer.entity.User;
 import com.sawyer.service.UserService;
 import com.sawyer.utils.ValidateImageCodeUtils;
@@ -40,16 +40,7 @@ public class UserController {
      * @param session
      * @return
      */
-    /*@PostMapping("/register")
-    public String register(User user) {
-        userService.register(user);
-        return "注册成功";
-    }*/
     @PostMapping("/register")
-    public ResponseEntity<String> register(User user) {
-        userService.register(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body("注册成功");
-    }
     /*public String register(User user, String code, HttpSession session) {
         String sessionCode = (String) session.getAttribute("code");
         if (sessionCode.equalsIgnoreCase(code)) {
@@ -59,7 +50,10 @@ public class UserController {
             return "redirect:/toRegister";
         }
     }*/
-
+    public String register(User user) {
+            userService.register(user);
+            return "注册成功";
+    }
 
 
     /**
@@ -92,17 +86,14 @@ public class UserController {
         }
     }*/
     @PostMapping(value = "/login")
-    public User login(@RequestBody LoginRequest request) {
-        String account = request.getAccount();
-        String password =request.getPassword();
-        User login = userService.login(account,password);
-        System.out.println(login);
+    public ResponseEntity<LoginResponse> login(String account, String password) {
+        User login = userService.login(account, password);
         if (login != null) {
-            System.out.println("登录成功");
-            return login;
+            LoginResponse response = new LoginResponse("登录成功", login);
+            return ResponseEntity.ok(response);
         } else {
-            System.out.println("登录失败");
-            return login;
+            LoginResponse response = new LoginResponse("登录失败", null);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
     }
 
