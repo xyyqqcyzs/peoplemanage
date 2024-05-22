@@ -40,7 +40,16 @@ public class UserController {
      * @param session
      * @return
      */
+    /*@PostMapping("/register")
+    public String register(User user) {
+        userService.register(user);
+        return "注册成功";
+    }*/
     @PostMapping("/register")
+    public ResponseEntity<String> register(User user) {
+        userService.register(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body("注册成功");
+    }
     /*public String register(User user, String code, HttpSession session) {
         String sessionCode = (String) session.getAttribute("code");
         if (sessionCode.equalsIgnoreCase(code)) {
@@ -50,10 +59,7 @@ public class UserController {
             return "redirect:/toRegister";
         }
     }*/
-    public String register(User user) {
-            userService.register(user);
-            return "注册成功";
-    }
+
 
 
     /**
