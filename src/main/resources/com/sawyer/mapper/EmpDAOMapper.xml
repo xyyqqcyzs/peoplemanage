@@ -47,6 +47,26 @@
         WHERE emp.pos_ID = #{pos_ID};
     </select>
 
+    <select id="findbyMode" parameterType="String" resultType="Employee">
+        select emp.emp_ID, emp.emp_name, emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail
+        from employee emp
+                 JOIN department dep ON emp.dep_ID = dep.dep_ID
+                 JOIN position pos ON emp.pos_ID = pos.pos_ID
+        WHERE entermode = #{mode};
+    </select>
+    <select id="findbyemptype" parameterType="String" resultType="Employee">
+        select emp.emp_ID, emp.emp_name, emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail
+        from employee emp
+                 JOIN department dep ON emp.dep_ID = dep.dep_ID
+                 JOIN position pos ON emp.pos_ID = pos.pos_ID
+        WHERE emp_type = #{emp_type};
+    </select>
+    <select id="findcareer" parameterType="int" resultType="Career">
+        select work_experience, academic_background
+        from employee
+        WHERE emp_ID = #{emp_ID};
+    </select>
+
     <!-- 修改员工信息 -->
     <update id="update" parameterType="Employee">
         UPDATE employee

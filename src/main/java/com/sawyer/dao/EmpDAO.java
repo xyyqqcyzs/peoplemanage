@@ -1,5 +1,6 @@
 package com.sawyer.dao;
 
+import com.sawyer.entity.Career;
 import com.sawyer.entity.Employee;
 
 import java.util.List;
@@ -18,4 +19,11 @@ public interface EmpDAO {
     Employee findbyID(int id);
 
     void update(Employee emp);
+
+    List<Employee> findbyMode(String mode);
+
+    List<Employee> findbyemptype(String empType);
+
+    Career findcareer(int id);
+
 }

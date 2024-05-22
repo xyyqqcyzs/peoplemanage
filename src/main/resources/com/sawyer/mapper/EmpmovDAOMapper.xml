@@ -4,92 +4,37 @@
 
     <!--    查询所有-->
     <select id="findAll" resultType="Employeemov">
-        select mov.mov_ID,mov.emp_ID,emp.emp_name, mov.before_dep, dep1.dep_name as before_depname, mov.after_dep, dep2.dep_name as after_depname,mov.before_pos, pos1.pos_name as before_posname, mov.after_pos, pos2.pos_name as after_posname, mov.mov_date, mov.reason,mov.movtype,mov.process_state
+        select mov.mov_ID,mov.emp_ID,emp.emp_name, mov.before_dep, dep1.dep_name, mov.after_dep, dep2.dep_name,
+        mov.before_pos, pos1.pos_name, mov.after_pos, pos2.pos_name, mov.mov_date, mov.reason
         from employmov mov
-                 JOIN department dep1 ON mov.before_dep = dep1.dep_ID
-                 JOIN department dep2 ON mov.after_dep = dep2.dep_ID
-                 JOIN `position` pos1 ON mov.before_pos = pos1.pos_ID
-                 JOIN `position` pos2 ON mov.after_pos = pos2.pos_ID
-                 JOIN employee emp ON mov.emp_ID = emp.emp_ID
+        JOIN department dep1 ON mov.before_dep = dep1.dep_ID
+        JOIN department dep2 ON mov.after_dep= dep2.dep_ID
+        JOIN `position` pos1 ON mov.before_pos = pos1.pos_ID
+        JOIN `position` pos2 ON mov.after_pos = pos2.pos_ID
+        JOIN employee emp ON mov.emp_ID = emp.emp_ID
+
     </select>
 
     <select id="findbyemp" parameterType="int" resultType="Employeemov">
-        select mov.mov_ID,mov.emp_ID,emp.emp_name, mov.before_dep, dep1.dep_name as before_depname, mov.after_dep, dep2.dep_name as after_depname,mov.before_pos, pos1.pos_name as before_posname, mov.after_pos, pos2.pos_name as after_posname, mov.mov_date, mov.reason,mov.movtype,mov.process_state
-        FROM employmov mov
-                 JOIN department depq ON mov.before_dep = dep1.dep_ID
-                 JOIN department dep2 ON mov.after_dep = dep2.dep_ID
-                 JOIN `position` pos1 ON mov.before_pos = pos1.pos_ID
-                 JOIN `position` pos2 ON mov.after_pos = pos2.pos_ID
+        select mov.mov_ID,mov.emp_ID,emp.emp_name, mov.before_dep, dep1.dep_name, mov.after_dep, dep2.dep_name,
+            mov.before_pos, pos1.pos_name, mov.after_pos, pos2.pos_name, mov.mov_date, mov.reason
+        from employmov mov
+        JOIN department dep1 ON mov.before_dep = dep1.dep_ID
+        JOIN department dep2 ON mov.after_dep = dep2.dep_ID
+        JOIN `position` pos1 ON mov.before_pos = pos1.pos_ID
+        JOIN `position` pos2 ON mov.after_pos = pos2.pos_ID
         JOIN employee emp ON mov.emp_ID = emp.emp_ID
-        WHERE mov.emp_ID = #{emp_ID}
+        where mov.emp_ID = #{emp_ID}
     </select>
-
-    <select id="findbyID" parameterType="int" resultType="Employeemov">
-        select mov.mov_ID,mov.emp_ID,emp.emp_name, mov.before_dep, dep1.dep_name as before_depname, mov.after_dep, dep2.dep_name as after_depname,mov.before_pos, pos1.pos_name as before_posname, mov.after_pos, pos2.pos_name as after_posname, mov.mov_date, mov.reason,mov.movtype,mov.process_state
-        FROM employmov mov
-                 JOIN department dep1 ON mov.before_dep = dep1.dep_ID
-                 JOIN department dep2 ON mov.after_dep = dep2.dep_ID
-                 JOIN `position` pos1 ON mov.before_pos = pos1.pos_ID
-                 JOIN `position` pos2 ON mov.after_pos = pos2.pos_ID
-                 JOIN employee emp ON mov.emp_ID = emp.emp_ID
-        WHERE mov.mov_ID = #{mov_ID}
-    </select>
-
-    <select id="findbytype" parameterType="String" resultType="Employeemov">
-        select mov.mov_ID,mov.emp_ID,emp.emp_name, mov.before_dep, dep1.dep_name as before_depname, mov.after_dep, dep2.dep_name as after_depname,mov.before_pos, pos1.pos_name as before_posname, mov.after_pos, pos2.pos_name as after_posname, mov.mov_date, mov.reason,mov.movtype,mov.process_state
-        FROM employmov mov
-                 JOIN department dep1 ON mov.before_dep = dep1.dep_ID
-                 JOIN department dep2 ON mov.after_dep = dep2.dep_ID
-                 JOIN `position` pos1 ON mov.before_pos = pos1.pos_ID
-                 JOIN `position` pos2 ON mov.after_pos = pos2.pos_ID
-                 JOIN employee emp ON mov.emp_ID = emp.emp_ID
-        WHERE mov.movtype = #{movtype}
-    </select>
-
-    <select id="findby" resultType="Employeemov" parameterType="map">
-        select mov.mov_ID,mov.emp_ID,emp.emp_name, mov.before_dep, dep1.dep_name as before_depname, mov.after_dep, dep2.dep_name as after_depname,mov.before_pos, pos1.pos_name as before_posname, mov.after_pos, pos2.pos_name as after_posname, mov.mov_date, mov.reason,mov.movtype,mov.process_state
-        FROM employmov mov
-                 JOIN department dep1 ON mov.before_dep = dep1.dep_ID
-                 JOIN department dep2 ON mov.after_dep = dep2.dep_ID
-                 JOIN `position` pos1 ON mov.before_pos = pos1.pos_ID
-                 JOIN `position` pos2 ON mov.after_pos = pos2.pos_ID
-                 JOIN employee emp ON mov.emp_ID = emp.emp_ID
-        <where>
-            <if test="emp_ID != null">
-                <![CDATA[AND mov.emp_ID >= #{emp_ID} ]]>
-            </if>
-            <if test="datea != null">
-                <![CDATA[AND mov.mov_date >= #{datea} ]]>
-            </if>
-            <if test="dateb != null">
-                <![CDATA[AND #{dateb} >= mov.mov_date ]]>
-            </if>
-            <if test="movtype != null">
-                <![CDATA[AND mov.movtype = #{movtype} ]]>
-            </if>
-            <if test="movtype != null">
-                <![CDATA[AND mov.process_state = #{process_state} ]]>
-            </if>
-        </where>
-    </select>
-    <!--    添加记录-->
-    <insert id="add" parameterType="Employeemov">
+    <!--    添加岗位-->
+    <insert id="add" parameterType="Position">
         insert into employmov(mov_ID, emp_ID, before_dep, after_dep, before_pos, after_pos, mov_date, reason)
-        values (#{mov_ID}, #{emp_ID}, #{before_dep}, #{after_dep}, #{before_pos}, #{after_pos},#{mov_date},#{reason})
+        values (#{mov_ID}, #{emp_ID}, #{before_dep}, #{after_dep}, #{before_pos}, #{after_pos},#{mov_date}, #{reason})
     </insert>
 
     <!--    删除记录-->
     <delete id="delete" parameterType="int">
         delete from employmov where mov_ID = #{mov_ID}
     </delete>
-
-    <update id="update" parameterType="Employeemov">
-        update `employmov`
-        <set>
-            <if test="mov_date != null">mov_date = #{mov_date},</if>
-            <if test="process_state != null">process_state = #{process_state},</if>
-        </set>
-        where mov_ID = #{mov_ID}
-    </update>
 
 </mapper>

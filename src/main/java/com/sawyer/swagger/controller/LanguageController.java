@@ -6,7 +6,6 @@ import com.sawyer.service.LanguageService;
 import com.sawyer.service.PosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,27 +21,29 @@ public class LanguageController {
     private LanguageService lanService;
 
     @GetMapping(value = "/findbyemp")
-    public List<Language> findbyemp(@RequestParam int emp_ID) {
+    @ResponseBody
+    public List<Language> findbyemp(int emp_ID) {
         List<Language> allList = lanService.findbyemp(emp_ID);
         return allList;
     }
 
     @PostMapping(value = "/add")
-    public ResponseEntity<String> add(@RequestBody Language lan) {
+    @ResponseBody
+    public String add(Language lan) {
         lanService.add(lan);
-        return ResponseEntity.ok("添加成功！");
+        return "添加成功！";
     }
 
-    @DeleteMapping(value = "/delete")
-    public ResponseEntity<String> delete(@RequestParam int language_ID) {
+    @GetMapping(value = "/delete")
+    public String delete(int language_ID) {
             lanService.delete(language_ID);
-            return ResponseEntity.ok("删除成功！");
+            return "删除成功！";
     }
 
-    @PutMapping(value = "/update")
-    public ResponseEntity<String> update(@RequestParam Language lan) {
+    @PostMapping(value = "update")
+    public String update(Language lan) {
         lanService.update(lan);
-        return ResponseEntity.ok("更新成功！");
+        return "更新成功！";
     }
 
 }

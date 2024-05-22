@@ -12,22 +12,19 @@ import java.sql.Date;
 @NoArgsConstructor
 @ToString
 public class Employeemov {
-    private Integer mov_ID;
-    private Integer emp_ID;
+    private int mov_ID;
+    private int emp_ID;
     private String emp_name;
-    private Integer before_dep;
-    private String before_depname;
-    private Integer after_dep;
-    private String after_depname;
-    private Integer before_pos;
-    private String before_posname;
-    private Integer after_pos;
-    private String after_posname;
+    private int before_dep;
+    private String before_dep_name;
+    private int after_dep;
+    private String after_dep_name;
+    private int before_pos;
+    private String before_pos_name;
+    private int after_pos;
+    private String after_pos_name;
     private Date mov_date;
     private String reason;
-    private String movtype;
-    private String process_state;
-
 
     public int getAfter_dep() {
         return after_dep;

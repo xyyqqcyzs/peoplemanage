@@ -1,5 +1,6 @@
 package com.sawyer.service;
 
+import com.sawyer.entity.Career;
 import com.sawyer.entity.Employee;
 
 import java.util.List;
@@ -18,4 +19,10 @@ public interface EmpService {
     Employee findbyID(int id);
 
     void update(Employee emp);
+
+    List<Employee> findbyMode(String mode);
+
+    List<Employee> findbyemptype(String emp_type);
+
+    Career findcareer(int id);
 }

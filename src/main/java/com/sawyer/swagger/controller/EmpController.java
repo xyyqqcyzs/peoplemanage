@@ -1,6 +1,7 @@
 package com.sawyer.swagger.controller;
 
 
+import com.sawyer.entity.Career;
 import com.sawyer.entity.Employee;
 import com.sawyer.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ public class EmpController {
     @Autowired
     private EmpService empService;
 
+    //查询所有员工
     @GetMapping(value = "/findAll")
     @ResponseBody
     public List<Employee> findAll() {
@@ -25,6 +27,7 @@ public class EmpController {
         return allList;
     }
 
+    //根据岗位ID查询
     @GetMapping(value = "/findbypos")
     @ResponseBody
     public List<Employee> findbypos(int pos_ID) {
@@ -32,6 +35,7 @@ public class EmpController {
         return allList;
     }
 
+    //根据部门ID查询
     @GetMapping(value = "/findbydep")
     @ResponseBody
     public List<Employee> findbydep(int dep_ID) {
@@ -47,7 +51,22 @@ public class EmpController {
         return "ems/emplist";
     }*/
 
+    //根据员工入职方式查询
+    @GetMapping(value = "findbyMode")
+    public List<Employee> findbyMode(String mode){
+        List<Employee> allList = empService.findbyMode(mode);
+        return allList;
+    }
 
+    //查询所有实习生
+    @GetMapping(value = "findbyemptype")
+    public List<Employee> findbyemptype(String emp_type){
+        List<Employee> allList = empService.findbyemptype(emp_type);
+        return allList;
+    }
+
+
+    //添加员工
     @PostMapping(value = "/add")
     @ResponseBody
     public String add(Employee emp) {
@@ -55,12 +74,14 @@ public class EmpController {
         return "添加成功";
     }
 
+    //删除员工
     @GetMapping(value = "/delete")
     public String delete(int id) {
         empService.delete(id);
         return "删除成功";
     }
 
+    //根据员工ID查询
     @GetMapping(value = "/findbyID")
     public Employee findbyID(int id, Model model) {
         Employee emp = empService.findbyID(id);
@@ -68,6 +89,15 @@ public class EmpController {
         return emp;
     }
 
+    @GetMapping(value="findcareer")
+    public Career findcareer(int id){
+        Career career = empService.findcareer(id);
+        return career;
+    }
+
+
+
+    //员工信息更新
     @PostMapping(value = "update")
     public String update(Employee emp) {
         empService.update(emp);
