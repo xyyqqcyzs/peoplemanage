@@ -11,7 +11,6 @@
     <!--    添加岗位-->
     <insert id="add" parameterType="Position">
         insert into `position`(pos_ID, pos_name, creat_date, dep_ID, detail) values (#{pos_ID}, #{pos_name}, #{creat_date}, #{dep_ID},#{detail})
-where
     </insert>
 
     <!--    删除岗位-->

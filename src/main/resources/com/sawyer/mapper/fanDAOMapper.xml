@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sawyer.dao.FamilyDAO">
+
+    <select id="findbyemp" parameterType="int" resultType="Family">
+        select fan.relation_ID, fan.emp_ID, emp.emp_name,fan.relation_name,fan.relation_type,fan.contact_info
+        from family_social_relations fan
+        JOIN employee emp ON fan.emp_ID = emp.emp_ID
+        where fan.emp_ID = #{emp_ID}
+    </select>
+
+    <insert id="add" parameterType="Family">
+        insert into family_social_relations(relation_ID, emp_ID,relation_name,relation_type,contact_info) values (#{relation_ID}, #{emp_ID},#{relation_name},#{relation_type},#{contact_info})
+    </insert>
+
+
+    <delete id="delete" parameterType="int">
+        delete from family_social_relations where relation_ID = #{relation_ID}
+    </delete>
+
+    <!--    修改岗位-->
+    <update id="update" parameterType="Language">
+        update family_social_relations
+        <set>
+            <if test="relation_ID != null">relation_ID = #{relation_ID},</if>
+            <if test="emp_ID != null">emp_ID = #{emp_ID},</if>
+            <if test="relation_name != null">relation_name = #{relation_name},</if>
+            <if test="relation_type != null">relation_type = #{relation_type},</if>
+            <if test="contact_info != null">contact_info = #{contact_info},</if>
+        </set>
+        where relation_ID = #{relation_ID}
+    </update>
+</mapper>

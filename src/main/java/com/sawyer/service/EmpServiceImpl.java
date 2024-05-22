@@ -1,6 +1,7 @@
 package com.sawyer.service;
 
 import com.sawyer.dao.EmpDAO;
+import com.sawyer.entity.Career;
 import com.sawyer.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,17 @@ public class EmpServiceImpl implements EmpService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public List<Employee> findbyMode(String mode) {
+        return empDAO.findbyMode(mode);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public List<Employee> findbyemptype(String emp_type) {
+        return empDAO.findbyemptype(emp_type);
+    }
+    @Override
     public void add(Employee emp) {
         empDAO.add(emp);
     }
@@ -54,4 +66,7 @@ public class EmpServiceImpl implements EmpService {
     public void update(Employee emp) {
         empDAO.update(emp);
     }
+
+    @Override
+    public Career findcareer(int id){return empDAO.findcareer(id);}
 }

@@ -5,6 +5,5 @@ import org.apache.ibatis.annotations.Param;
 
 public interface UserDAO {
     void save(User user);
-    //User login(String account, String password);
     User login(@Param("account") String account, @Param("password") String password);
 }

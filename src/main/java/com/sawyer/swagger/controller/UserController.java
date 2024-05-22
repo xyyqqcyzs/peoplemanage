@@ -1,6 +1,6 @@
 package com.sawyer.swagger.controller;
 
-import com.sawyer.entity.LoginResponse;
+import com.sawyer.entity.LoginRequest;
 import com.sawyer.entity.User;
 import com.sawyer.service.UserService;
 import com.sawyer.utils.ValidateImageCodeUtils;
@@ -92,14 +92,17 @@ public class UserController {
         }
     }*/
     @PostMapping(value = "/login")
-    public ResponseEntity<LoginResponse> login(String account, String password) {
-        User login = userService.login(account, password);
+    public User login(@RequestBody LoginRequest request) {
+        String account = request.getAccount();
+        String password =request.getPassword();
+        User login = userService.login(account,password);
+        System.out.println(login);
         if (login != null) {
-            LoginResponse response = new LoginResponse("登录成功", login);
-            return ResponseEntity.ok(response);
+            System.out.println("登录成功");
+            return login;
         } else {
-            LoginResponse response = new LoginResponse("登录失败", null);
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+            System.out.println("登录失败");
+            return login;
         }
     }
 
