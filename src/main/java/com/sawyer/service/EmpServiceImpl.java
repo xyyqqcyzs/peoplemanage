@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -69,4 +70,10 @@ public class EmpServiceImpl implements EmpService {
 
     @Override
     public Career findcareer(int id){return empDAO.findcareer(id);}
+
+    @Override
+    public List<Employee> findbyall(Integer dep_ID, Integer pos_ID, Date datea, Date dateb,String entermode, String emp_type, Date confirm_datea,  Date confirm_dateb,String intern_situation){
+        return empDAO.findbyall(dep_ID,pos_ID,datea,dateb,entermode,emp_type,confirm_datea,confirm_dateb,intern_situation);
+    };
+
 }

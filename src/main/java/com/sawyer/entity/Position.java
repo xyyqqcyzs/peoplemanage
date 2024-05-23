@@ -10,7 +10,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Position {
-    private int pos_ID;
+    private Integer pos_ID;
     private String pos_name;
     private String creat_date;
     private String dep_ID;

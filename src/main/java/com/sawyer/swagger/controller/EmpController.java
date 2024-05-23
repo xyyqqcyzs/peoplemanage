@@ -3,6 +3,7 @@ package com.sawyer.swagger.controller;
 
 import com.sawyer.entity.Career;
 import com.sawyer.entity.Employee;
+import com.sawyer.entity.Findemp;
 import com.sawyer.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @Controller
@@ -24,6 +26,34 @@ public class EmpController {
     @GetMapping(value = "/findAll")
     public List<Employee> findAll() {
         List<Employee> allList = empService.findAll();
+        return allList;
+    }
+
+    //多值查询
+    @PostMapping(value = "findbyall")
+    public List<Employee> findbyall(@RequestBody Findemp find) {
+        Integer dep_ID = find.getDep_ID(); // Integer 类型可接受 null 值
+        Integer pos_ID = find.getPos_ID();
+        Date datea = find.getDatea();
+        Date dateb = find.getDateb();
+        String entermode = find.getEntermode();
+        String emp_type = find.getEmp_type();
+        Date confirm_datea = find.getConfirm_datea();
+        Date confirm_dateb = find.getConfirm_dateb();
+        String intern_situation = find.getIntern_situation();
+
+        // Check if the values are null and set them to null if needed
+        if ("".equals(entermode)) {
+            entermode = null;
+        }
+        if ("".equals(emp_type)) {
+            emp_type = null;
+        }
+        if ("".equals(intern_situation)) {
+            intern_situation = null;
+        }
+        // Repeat the null check and conversion for other fields
+        List<Employee> allList = empService.findbyall(dep_ID, pos_ID, datea, dateb,entermode, emp_type, confirm_datea, confirm_dateb, intern_situation);
         return allList;
     }
 
@@ -56,7 +86,7 @@ public class EmpController {
         return allList;
     }
 
-    //查询所有实习生
+    //根据员工类型查询（实习生，正式员工）
     @GetMapping(value = "findbyemptype")
     public List<Employee> findbyemptype(@RequestParam String emp_type){
         List<Employee> allList = empService.findbyemptype(emp_type);
@@ -91,6 +121,7 @@ public class EmpController {
         return emp;
     }
 
+    //根据ID查询员工学业背景和工作经历
     @GetMapping(value="findcareer")
     public Career findcareer(@RequestParam int id){
         Career career = empService.findcareer(id);
@@ -110,4 +141,6 @@ public class EmpController {
         empService.update(emp);
         return ResponseEntity.ok("更新成功");
     }
+
+
 }

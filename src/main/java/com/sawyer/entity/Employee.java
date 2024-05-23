@@ -12,12 +12,12 @@ import java.sql.Date;
 @NoArgsConstructor
 @ToString
 public class Employee {
-    private int emp_ID;
+    private Integer emp_ID;
     private String emp_name;
     private String gender;
-    private int dep_ID;
+    private Integer dep_ID;
     private String dep_name;
-    private int pos_ID;
+    private Integer pos_ID;
     private  String pos_name;
     private Date date;
     private String entermode;

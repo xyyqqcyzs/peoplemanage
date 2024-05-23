@@ -66,6 +66,41 @@
         from employee
         WHERE emp_ID = #{emp_ID};
     </select>
+    <select id="findbyall" resultType="Employee" parameterType="map">
+        select emp.emp_ID, emp.emp_name, emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail
+        from employee emp
+        JOIN department dep ON emp.dep_ID = dep.dep_ID
+        JOIN position pos ON emp.pos_ID = pos.pos_ID
+        <where>
+            <if test="dep_ID != null">
+                <![CDATA[AND emp.dep_ID = #{dep_ID} ]]>
+            </if>
+            <if test="pos_ID != null">
+                <![CDATA[AND emp.pos_ID = #{pos_ID} ]]>
+            </if>
+            <if test="datea != null">
+                <![CDATA[AND emp.date > #{datea} ]]>
+            </if>
+            <if test="dateb != null">
+                <![CDATA[AND emp.date < #{dateb} ]]>
+            </if>
+            <if test="entermode != null">
+                <![CDATA[AND emp.entermode = #{entermode} ]]>
+            </if>
+            <if test="emp_type != null">
+                <![CDATA[AND emp.emp_type = #{emp_type} ]]>
+            </if>
+            <if test="confirm_datea != null">
+                <![CDATA[AND emp.confirm_date > #{confirm_datea} ]]>
+            </if>
+            <if test="confirm_dateb != null">
+                <![CDATA[AND emp.confirm_date < #{confirm_dateb} ]]>
+            </if>
+            <if test="intern_situation != null">
+                <![CDATA[AND emp.intern_situation = #{intern_situation} ]]>
+            </if>
+        </where>
+    </select>
 
     <!-- 修改员工信息 -->
     <update id="update" parameterType="Employee">
