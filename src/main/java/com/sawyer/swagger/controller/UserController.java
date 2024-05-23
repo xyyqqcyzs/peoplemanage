@@ -35,9 +35,9 @@ public class UserController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(User user) {
+    public ResponseEntity<String> register(@RequestBody User user) {
             userService.register(user);
-            return ResponseEntity.status(HttpStatus.CREATED).body("注册成功");
+            return ResponseEntity.ok("注册成功");
     }
 
 
