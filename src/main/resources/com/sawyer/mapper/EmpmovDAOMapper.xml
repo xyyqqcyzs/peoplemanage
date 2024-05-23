@@ -24,8 +24,8 @@
         JOIN employee emp ON mov.emp_ID = emp.emp_ID
         where mov.emp_ID = #{emp_ID}
     </select>
-    <!--    添加岗位-->
-    <insert id="add" parameterType="Position">
+    <!--    添加记录-->
+    <insert id="add" parameterType="Employeemov">
         insert into employmov(mov_ID, emp_ID, before_dep, after_dep, before_pos, after_pos, mov_date, reason)
         values (#{mov_ID}, #{emp_ID}, #{before_dep}, #{after_dep}, #{before_pos}, #{after_pos},#{mov_date}, #{reason})
     </insert>
