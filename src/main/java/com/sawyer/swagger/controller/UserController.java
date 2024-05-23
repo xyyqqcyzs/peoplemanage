@@ -72,7 +72,7 @@ public class UserController {
         if (login != null) {
             return "登陆成功";
         } else {
-            return "登陆时报";
+            return "登陆失败";
         }
     }
 
