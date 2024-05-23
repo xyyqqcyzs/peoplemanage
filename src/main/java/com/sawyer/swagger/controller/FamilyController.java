@@ -5,6 +5,7 @@ import com.sawyer.entity.Language;
 import com.sawyer.service.FamilyService;
 import com.sawyer.service.LanguageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,28 +21,28 @@ public class FamilyController {
 
     @GetMapping(value = "/findbyemp")
     @ResponseBody
-    public List<Family> findbyemp(int emp_ID) {
+    public List<Family> findbyemp(@RequestParam int emp_ID) {
         List<Family> allList = fanService.findbyemp(emp_ID);
         return allList;
     }
 
     @PostMapping(value = "/add")
     @ResponseBody
-    public String add(Family fan) {
+    public ResponseEntity<String> add(@RequestBody Family fan) {
         fanService.add(fan);
-        return "添加成功！";
+        return ResponseEntity.ok("添加成功！");
     }
 
     @GetMapping(value = "/delete")
-    public String delete(int relation_ID) {
+    public ResponseEntity<String> delete(@RequestParam int relation_ID) {
             fanService.delete(relation_ID);
-            return "删除成功！";
+            return ResponseEntity.ok("删除成功！");
     }
 
     @PostMapping(value = "update")
-    public String update(Family fan) {
+    public ResponseEntity<String> update(@RequestBody Family fan) {
         fanService.update(fan);
-        return "更新成功！";
+        return ResponseEntity.ok("更新成功！");
     }
 
 }
