@@ -79,10 +79,10 @@
                 <![CDATA[AND emp.pos_ID = #{pos_ID} ]]>
             </if>
             <if test="datea != null">
-                <![CDATA[AND emp.date > #{datea} ]]>
+                <![CDATA[AND emp.date >= #{datea} ]]>
             </if>
             <if test="dateb != null">
-                <![CDATA[AND emp.date < #{dateb} ]]>
+                <![CDATA[AND #{dateb} >= emp.date ]]>
             </if>
             <if test="entermode != null">
                 <![CDATA[AND emp.entermode = #{entermode} ]]>
@@ -91,10 +91,10 @@
                 <![CDATA[AND emp.emp_type = #{emp_type} ]]>
             </if>
             <if test="confirm_datea != null">
-                <![CDATA[AND emp.confirm_date > #{confirm_datea} ]]>
+                <![CDATA[AND emp.confirm_date >= #{confirm_datea} ]]>
             </if>
             <if test="confirm_dateb != null">
-                <![CDATA[AND emp.confirm_date < #{confirm_dateb} ]]>
+                <![CDATA[AND #{confirm_dateb} >= emp.confirm_date ]]>
             </if>
             <if test="intern_situation != null">
                 <![CDATA[AND emp.intern_situation = #{intern_situation} ]]>

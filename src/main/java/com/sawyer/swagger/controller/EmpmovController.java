@@ -1,9 +1,6 @@
 package com.sawyer.swagger.controller;
 
-import com.sawyer.entity.Career;
-import com.sawyer.entity.Employee;
-import com.sawyer.entity.Employeemov;
-import com.sawyer.entity.Position;
+import com.sawyer.entity.*;
 import com.sawyer.service.EmpService;
 import com.sawyer.service.EmpmovService;
 import com.sawyer.service.PosService;
@@ -14,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @Controller
@@ -54,6 +52,19 @@ public class EmpmovController {
     @GetMapping(value = "/findbyemp")
     public List<Employeemov> findbyemp(@RequestParam int emp_ID) {
         List<Employeemov> allList = movService.findbyemp(emp_ID);
+        return allList;
+    }
+    @GetMapping(value = "/findbytype")
+    public List<Employeemov> findbytype(@RequestParam String movtype) {
+        List<Employeemov> allList = movService.findbytype(movtype);
+        return allList;
+    }
+
+    @PostMapping(value = "/findbytime")
+    public List<Employeemov> findbytime(@RequestBody Movtime movtime) {
+        Date datea = movtime.getDatea();
+        Date dateb = movtime.getDateb();
+        List<Employeemov> allList = movService.findbytime(datea,dateb);
         return allList;
     }
 
