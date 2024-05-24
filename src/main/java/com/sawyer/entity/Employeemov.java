@@ -25,6 +25,7 @@ public class Employeemov {
     private String after_pos_name;
     private Date mov_date;
     private String reason;
+    private String movtype;
 
     public int getAfter_dep() {
         return after_dep;

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -40,6 +41,18 @@ public class EmpmovServiceImpl implements EmpmovService {
     @Transactional(propagation = Propagation.SUPPORTS)
     public List<Employeemov> findbyemp(int emp_ID) {
         return movDAO.findbyemp(emp_ID);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public List<Employeemov> findbytype(String movtype) {
+        return movDAO.findbytype(movtype);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public List<Employeemov> findbytime(Date datea, Date dateb) {
+        return movDAO.findbytime(datea,dateb);
     }
 
 
