@@ -14,4 +14,11 @@ public class testpush {
     public testpush(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "testpush{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
