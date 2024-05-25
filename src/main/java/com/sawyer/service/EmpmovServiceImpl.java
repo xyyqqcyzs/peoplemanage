@@ -51,8 +51,8 @@ public class EmpmovServiceImpl implements EmpmovService {
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
-    public List<Employeemov> findbytime(Date datea, Date dateb) {
-        return movDAO.findbytime(datea,dateb);
+    public List<Employeemov> findby(Integer mov_ID,Date datea, Date dateb,String movtype) {
+        return movDAO.findby(mov_ID,datea,dateb,movtype);
     }
 
 

@@ -118,7 +118,7 @@
             <if test="address != null">address = #{address},</if>
             <if test="work_experience != null">work_experience = #{work_experience},</if>
             <if test="academic_background != null">academic_background = #{academic_background},</if>
-            <if test="emp_type != null">emp_type = #{emp_type},</if>
+            <if test="emp_type != null"><![CDATA[emp_type = #{emp_type},]]></if>
             <if test="confirm_date != null">confirm_date = #{confirm_date},</if>
             <if test="intern_situation != null">intern_situation = #{intern_situation},</if>
             <if test="intern_detail != null">intern_detail = #{intern_detail}</if>

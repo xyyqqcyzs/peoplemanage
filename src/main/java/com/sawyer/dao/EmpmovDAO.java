@@ -10,10 +10,10 @@ import java.util.List;
 public interface EmpmovDAO {
     List<Employeemov> findAll();
     void add(Employeemov mov);
-    void delete(int mov_ID);
-    List<Employeemov> findbyemp(int emp_ID);
+    void delete(Integer mov_ID);
+    List<Employeemov> findbyemp(Integer emp_ID);
 
     List<Employeemov> findbytype(String type);
 
-    List<Employeemov> findbytime(@Param("datea")Date datea, @Param("dateb")Date dateb);
+    List<Employeemov> findby(@Param("emp_ID")Integer emp_ID, @Param("datea")Date datea, @Param("dateb")Date dateb,@Param("movtype")String movtype);
 }

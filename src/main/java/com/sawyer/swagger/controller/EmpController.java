@@ -29,7 +29,8 @@ public class EmpController {
         return allList;
     }
 
-    //多值查询
+    //多值查询：部门ID，岗位ID，入职日期，转正日期，入职方式（人才库入职，普通入职），
+    // 员工类型（正式员工，实习生），实习情况（正常实习，延期，未通过，已转正）
     @PostMapping(value = "findbyall")
     public List<Employee> findbyall(@RequestBody Findemp find) {
         Integer dep_ID = find.getDep_ID(); // Integer 类型可接受 null 值
@@ -136,7 +137,7 @@ public class EmpController {
         empService.update(emp);
         return "更新成功";
     }*/
-    @PostMapping(value = "update")
+    @PostMapping(value = "update")//更新值不能为空
     public ResponseEntity<String> update(@RequestBody Employee emp) {
         empService.update(emp);
         return ResponseEntity.ok("更新成功");
