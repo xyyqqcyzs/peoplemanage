@@ -11,5 +11,5 @@ public interface EmpmovService {
     void add(Employeemov mov);
     void delete(int mov_ID);
     List<Employeemov> findbytype(String movtype);
-    List<Employeemov> findbytime(Date datea, Date dateb);
+    List<Employeemov> findby(Integer mov_ID, Date datea, Date dateb, String movtype);
 }

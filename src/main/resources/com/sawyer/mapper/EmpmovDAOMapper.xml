@@ -4,30 +4,28 @@
 
     <!--    查询所有-->
     <select id="findAll" resultType="Employeemov">
-        select mov.mov_ID,mov.emp_ID,emp.emp_name, mov.before_dep, dep.dep_name, mov.after_dep, dep2.dep_name,mov.before_pos, pos.pos_name, mov.after_pos, pos2.pos_name, mov.mov_date, mov.reason
+        select mov.mov_ID,mov.emp_ID,emp.emp_name, mov.before_dep, dep1.dep_name as before_depname, mov.after_dep, dep2.dep_name as after_depname,mov.before_pos, pos1.pos_name as before_posname, mov.after_pos, pos2.pos_name as after_posname, mov.mov_date, mov.reason,mov.movtype
         from employmov mov
-        JOIN department dep ON mov.before_dep = dep.dep_ID
-        JOIN department dep2 ON mov.after_dep= dep2.dep_ID
-        JOIN `position` pos ON mov.before_pos = pos.pos_ID
-        JOIN `position` pos2 ON mov.after_pos = pos2.pos_ID
-        JOIN employee emp ON mov.emp_ID = emp.emp_ID
+                 JOIN department dep1 ON mov.before_dep = dep1.dep_ID
+                 JOIN department dep2 ON mov.after_dep = dep2.dep_ID
+                 JOIN `position` pos1 ON mov.before_pos = pos1.pos_ID
+                 JOIN `position` pos2 ON mov.after_pos = pos2.pos_ID
+                 JOIN employee emp ON mov.emp_ID = emp.emp_ID
     </select>
 
     <select id="findbyemp" parameterType="int" resultType="Employeemov">
-        select mov.mov_ID,mov.emp_ID,emp.emp_name, mov.before_dep, dep1.dep_name, mov.after_dep, dep2.dep_name,
-            mov.before_pos, pos1.pos_name, mov.after_pos, pos2.pos_name, mov.mov_date, mov.reason,mov.movtype
+        select mov.mov_ID,mov.emp_ID,emp.emp_name, mov.before_dep, dep1.dep_name as before_depname, mov.after_dep, dep2.dep_name as after_depname,mov.before_pos, pos1.pos_name as before_posname, mov.after_pos, pos2.pos_name as after_posname, mov.mov_date, mov.reason,mov.movtype
         FROM employmov mov
-        JOIN department dep1 ON mov.before_dep = dep1.dep_ID
-        JOIN department dep2 ON mov.after_dep = dep2.dep_ID
-        JOIN `position` pos1 ON mov.before_pos = pos1.pos_ID
-        JOIN `position` pos2 ON mov.after_pos = pos2.pos_ID
+        JOIN department depa ON mov.before_dep = depa.dep_ID
+        JOIN department depb ON mov.after_dep = depb.dep_ID
+        JOIN `position` posa ON mov.before_pos = posa.pos_ID
+        JOIN `position` posb ON mov.after_pos = posb.pos_ID
         JOIN employee emp ON mov.emp_ID = emp.emp_ID
         WHERE mov.emp_ID = #{emp_ID}
     </select>
 
     <select id="findbytype" parameterType="String" resultType="Employeemov">
-        select mov.mov_ID,mov.emp_ID,emp.emp_name, mov.before_dep, dep1.dep_name, mov.after_dep, dep2.dep_name,
-               mov.before_pos, pos1.pos_name, mov.after_pos, pos2.pos_name, mov.mov_date, mov.reason,mov.movtype
+        select mov.mov_ID,mov.emp_ID,emp.emp_name, mov.before_dep, dep1.dep_name as before_depname, mov.after_dep, dep2.dep_name as after_depname,mov.before_pos, pos1.pos_name as before_posname, mov.after_pos, pos2.pos_name as after_posname, mov.mov_date, mov.reason,mov.movtype
         FROM employmov mov
                  JOIN department dep1 ON mov.before_dep = dep1.dep_ID
                  JOIN department dep2 ON mov.after_dep = dep2.dep_ID
@@ -37,16 +35,28 @@
         WHERE mov.movtype = #{movtype}
     </select>
 
-    <select id="findbytime" resultType="Employeemov">
-        select mov.mov_ID,mov.emp_ID,emp.emp_name, mov.before_dep, dep1.dep_name, mov.after_dep, dep2.dep_name,
-               mov.before_pos, pos1.pos_name, mov.after_pos, pos2.pos_name, mov.mov_date, mov.reason,mov.movtype
+    <select id="findby" resultType="Employeemov" parameterType="map">
+        select mov.mov_ID,mov.emp_ID,emp.emp_name, mov.before_dep, dep1.dep_name as before_depname, mov.after_dep, dep2.dep_name as after_depname,mov.before_pos, pos1.pos_name as before_posname, mov.after_pos, pos2.pos_name as after_posname, mov.mov_date, mov.reason,mov.movtype
         FROM employmov mov
                  JOIN department dep1 ON mov.before_dep = dep1.dep_ID
                  JOIN department dep2 ON mov.after_dep = dep2.dep_ID
                  JOIN `position` pos1 ON mov.before_pos = pos1.pos_ID
                  JOIN `position` pos2 ON mov.after_pos = pos2.pos_ID
                  JOIN employee emp ON mov.emp_ID = emp.emp_ID
-        WHERE mov.mov_date >= #{datea} AND #{dateb} >= mov.mov_date
+        <where>
+            <if test="emp_ID != null">
+                <![CDATA[AND mov.emp_ID >= #{emp_ID} ]]>
+            </if>
+            <if test="datea != null">
+                <![CDATA[AND mov.mov_date >= #{datea} ]]>
+            </if>
+            <if test="dateb != null">
+                <![CDATA[AND #{dateb} >= mov.mov_date ]]>
+            </if>
+            <if test="movtype != null">
+                <![CDATA[AND mov.movtype = #{movtype} ]]>
+            </if>
+        </where>
     </select>
     <!--    添加记录-->
     <insert id="add" parameterType="Employeemov">
