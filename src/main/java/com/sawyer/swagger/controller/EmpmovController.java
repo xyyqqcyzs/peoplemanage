@@ -46,8 +46,8 @@ public class EmpmovController {
 
     @GetMapping(value = "/delete")
     public ResponseEntity<String> delete(@RequestParam int mov_ID) {
-            movService.delete(mov_ID);
-            return ResponseEntity.ok("删除成功！");
+        movService.delete(mov_ID);
+        return ResponseEntity.ok("删除成功！");
     }
 
 /*
@@ -65,15 +65,14 @@ public class EmpmovController {
     //根据调动员工ID，调动时间，调动类型（岗位间调动，部门间调动）多条件查询
     @PostMapping(value = "/findby")
     public List<Employeemov> findby(@RequestBody Movtime movtime) {
-        Integer mov_ID = movtime.getEmp_ID();
+        Integer emp_ID = movtime.getEmp_ID();
         Date datea = movtime.getDatea();
         Date dateb = movtime.getDateb();
         String movtype = movtime.getMovtype();
         if ("".equals(movtype)) {
             movtype = null;
         }
-        List<Employeemov> allList = movService.findby(mov_ID,datea,dateb,movtype);
+        List<Employeemov> allList = movService.findby(emp_ID, datea, dateb, movtype);
         return allList;
     }
-
 }
