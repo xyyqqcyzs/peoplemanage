@@ -17,6 +17,7 @@ public class Dimission {
     private int emp_ID;
     private Date dim_date;
     private String dim_reason;
+
     private String emp_name; //emp
     private String gender; //emp
     private int dep_ID; //emp
