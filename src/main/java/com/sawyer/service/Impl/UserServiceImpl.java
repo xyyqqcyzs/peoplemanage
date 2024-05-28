@@ -1,7 +1,8 @@
-package com.sawyer.service;
+package com.sawyer.service.Impl;
 
 import com.sawyer.dao.UserDAO;
 import com.sawyer.entity.User;
+import com.sawyer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

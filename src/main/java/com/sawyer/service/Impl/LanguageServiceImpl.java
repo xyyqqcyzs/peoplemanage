@@ -1,9 +1,10 @@
-package com.sawyer.service;
+package com.sawyer.service.Impl;
 
 import com.sawyer.dao.LanguageDAO;
 
 import com.sawyer.entity.Language;
 
+import com.sawyer.service.LanguageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;

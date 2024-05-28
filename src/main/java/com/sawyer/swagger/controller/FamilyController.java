@@ -20,26 +20,23 @@ public class FamilyController {
     private FamilyService fanService;
 
     @GetMapping(value = "/findbyemp")
-    @ResponseBody
     public List<Family> findbyemp(@RequestParam int emp_ID) {
         List<Family> allList = fanService.findbyemp(emp_ID);
         return allList;
     }
 
     @PostMapping(value = "/add")
-    @ResponseBody
     public ResponseEntity<String> add(@RequestBody Family fan) {
         fanService.add(fan);
         return ResponseEntity.ok("添加成功！");
     }
-
-    @GetMapping(value = "/delete")
+    @DeleteMapping(value = "/delete")
     public ResponseEntity<String> delete(@RequestParam int relation_ID) {
             fanService.delete(relation_ID);
             return ResponseEntity.ok("删除成功！");
     }
 
-    @PostMapping(value = "update")
+    @PutMapping(value = "update")
     public ResponseEntity<String> update(@RequestBody Family fan) {
         fanService.update(fan);
         return ResponseEntity.ok("更新成功！");

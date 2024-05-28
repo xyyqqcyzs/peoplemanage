@@ -1,4 +1,4 @@
-package com.sawyer.service;
+package com.sawyer.service.Impl;
 
 import com.sawyer.dao.EmpDAO;
 import com.sawyer.dao.EmpmovDAO;
@@ -6,6 +6,7 @@ import com.sawyer.dao.PositionDAO;
 import com.sawyer.entity.Employee;
 import com.sawyer.entity.Employeemov;
 import com.sawyer.entity.Position;
+import com.sawyer.service.EmpmovService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -51,9 +52,17 @@ public class EmpmovServiceImpl implements EmpmovService {
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
-    public List<Employeemov> findby(Integer emp_ID,Date datea, Date dateb,String movtype) {
-        return movDAO.findby(emp_ID,datea,dateb,movtype);
+    public List<Employeemov> findby(Integer emp_ID,Date datea, Date dateb,String movtype, String process_state) {
+        return movDAO.findby(emp_ID,datea,dateb,movtype,process_state);
     }
 
-
+    @Override
+    public void update(Employeemov mov) {
+        movDAO.update(mov);
+    }
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public Employeemov findbyID(int id) {
+        return movDAO.findbyID(id);
+    }
 }
