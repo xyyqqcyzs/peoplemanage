@@ -12,22 +12,14 @@
     </select>
 
     <!--    添加离职人员 -->
-    <insert id="add" parameterType="map">
-        insert into dimission(emp_ID, dim_date, dim_reason,emp_name,gender,dep_ID,dep_name,pos_ID,pos_name,date,confirm_date )
-        select (#{emp_ID}, #{dim_date}, #{dim_reason} ,e.emp_name,e.gender,e.dep_ID,dep.dep_name,e.pos_ID,pos.pos_name,e.date,e.confirm_date)
-        from employee e ;
-        JOIN department dep ON e.dep_ID = dep.dep_ID ;
-        JOIN position pos ON e.pos_ID = pos.pos_ID ;
-        WHERE e.emp_ID = #{emp_ID};
-
+    <insert id="add" parameterType="Dimission">
+        insert into dimission(emp_ID, dim_date, dim_reason ) values (#{emp_ID}, #{dim_date}, #{dim_reason} )
         DELETE FROM employee WHERE emp_ID = #{emp_ID};
     </insert>
 
-
-
     <!--    删除离职人员 -->
     <delete id="delete" parameterType="int">
-        delete from dimission where emp_ID = #{emp_ID}
+        delete from dimission_emp where emp_ID = #{emp_ID}
     </delete>
 
     <!--    根据ID查询离职人员-->
