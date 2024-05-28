@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sawyer.dao.TalentDAO">
+
+    <!-- 查询所有员工信息 -->
+    <select id="findAll" resultType="Talentpool">
+        select * from talentpool
+    </select>
+    <select id="findbyID" parameterType="int" resultType="Talentpool">
+        select *
+        from talentpool
+        WHERE talent_ID = #{talent_ID};
+    </select>
+    <!-- 添加员工信息 -->
+    <insert id="add" parameterType="Talentpool">
+        INSERT INTO talentpool(talent_ID, name, gender, phone, email, address,birthday, work_experience, academic )
+        VALUES (#{talent_ID}, #{name}, #{gender}, #{phone}, #{email}, #{address}, #{birthday}, #{work_experience}, #{academic});
+    </insert>
+
+    <!-- 删除员工信息 -->
+    <delete id="delete" parameterType="int">
+        DELETE FROM talentpool WHERE talent_ID = #{talentpool_ID};
+    </delete>
+
+</mapper>

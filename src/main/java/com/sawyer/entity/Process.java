@@ -11,12 +11,7 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Movtime {
-
-    private  Integer emp_ID;
-    private Date datea;
-    private Date dateb;
-    private String movtype;
-
-    private String process_state;
+public class Process {
+    int id;
+    Date date;
 }

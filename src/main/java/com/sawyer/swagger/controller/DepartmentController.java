@@ -37,7 +37,7 @@ public class DepartmentController {
     }
 
 
-    @GetMapping(value = "/delete")
+    @DeleteMapping(value = "/delete")
     public ResponseEntity<String> delete(@RequestParam int id) {
         try {
             depService.delete(id);
@@ -57,7 +57,7 @@ public class DepartmentController {
         return dep;
     }
 
-    @PostMapping(value = "update")
+    @PutMapping(value = "/update")
     public ResponseEntity<String> update(@RequestBody Department dep) {
         depService.update(dep);
         return ResponseEntity.ok( "更新成功");

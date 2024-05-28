@@ -14,7 +14,7 @@ public class IndexController {
         return "/login";
     }
 
-    @GetMapping(value = "toSave")
+    @GetMapping(value = "/toSave")
     public String toSave() {
         return "ems/addEmp";
     }

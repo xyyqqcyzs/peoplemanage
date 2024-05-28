@@ -26,6 +26,8 @@ public class Employeemov {
     private Date mov_date;
     private String reason;
     private String movtype;
+    private String process_state;
+
 
     public int getAfter_dep() {
         return after_dep;
