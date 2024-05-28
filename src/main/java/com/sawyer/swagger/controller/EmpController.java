@@ -31,7 +31,7 @@ public class EmpController {
 
     //多值查询：部门ID，岗位ID，入职日期，转正日期，入职方式（人才库入职，普通入职），
     // 员工类型（正式员工，实习生），实习情况（正常实习，延期，未通过，已转正）
-    @PostMapping(value = "findbyall")
+    @PostMapping(value = "/findbyall")
     public List<Employee> findbyall(@RequestBody Findemp find) {
         Integer dep_ID = find.getDep_ID(); // Integer 类型可接受 null 值
         Integer pos_ID = find.getPos_ID();
@@ -81,14 +81,14 @@ public class EmpController {
     }*/
 
     //根据员工入职方式查询
-    @GetMapping(value = "findbyMode")
+    @GetMapping(value = "/findbyMode")
     public List<Employee> findbyMode(@RequestParam String mode){
         List<Employee> allList = empService.findbyMode(mode);
         return allList;
     }
 
     //根据员工类型查询（实习生，正式员工）
-    @GetMapping(value = "findbyemptype")
+    @GetMapping(value = "/findbyemptype")
     public List<Employee> findbyemptype(@RequestParam String emp_type){
         List<Employee> allList = empService.findbyemptype(emp_type);
         return allList;
@@ -101,15 +101,16 @@ public class EmpController {
 
 
 
-    //添加员工
+    //添加员工,普通入职
     @PostMapping(value = "/add")
     public ResponseEntity<String> add(@RequestBody Employee emp) {
         empService.add(emp);
         return ResponseEntity.ok("添加成功");
     }
 
+
     //删除员工
-    @GetMapping(value = "/delete")
+    @DeleteMapping (value = "/delete")
     public ResponseEntity<String> delete(@RequestParam int id) {
         empService.delete(id);
         return ResponseEntity.ok("删除成功");
@@ -123,7 +124,7 @@ public class EmpController {
     }
 
     //根据ID查询员工学业背景和工作经历
-    @GetMapping(value="findcareer")
+    @GetMapping(value="/findcareer")
     public Career findcareer(@RequestParam int id){
         Career career = empService.findcareer(id);
         return career;
@@ -137,7 +138,7 @@ public class EmpController {
         empService.update(emp);
         return "更新成功";
     }*/
-    @PostMapping(value = "update")//更新值不能为空
+    @PutMapping(value = "/update")//更新值不能为空
     public ResponseEntity<String> update(@RequestBody Employee emp) {
         empService.update(emp);
         return ResponseEntity.ok("更新成功");

@@ -22,26 +22,24 @@ public class LanguageController {
     private LanguageService lanService;
 
     @GetMapping(value = "/findbyemp")
-    @ResponseBody
     public List<Language> findbyemp(@RequestParam int emp_ID) {
         List<Language> allList = lanService.findbyemp(emp_ID);
         return allList;
     }
 
     @PostMapping(value = "/add")
-    @ResponseBody
     public ResponseEntity<String> add(@RequestBody Language lan) {
         lanService.add(lan);
         return ResponseEntity.ok("添加成功！");
     }
 
-    @GetMapping(value = "/delete")
+    @DeleteMapping(value = "/delete")
     public ResponseEntity<String> delete(@RequestParam int language_ID) {
             lanService.delete(language_ID);
             return ResponseEntity.ok("删除成功！");
     }
 
-    @PostMapping(value = "update")
+    @PutMapping(value = "/update")
     public ResponseEntity<String> update(@RequestParam Language lan) {
         lanService.update(lan);
         return ResponseEntity.ok("更新成功！");

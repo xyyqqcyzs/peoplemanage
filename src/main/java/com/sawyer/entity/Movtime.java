@@ -17,4 +17,6 @@ public class Movtime {
     private Date datea;
     private Date dateb;
     private String movtype;
+
+    private String process_state;
 }

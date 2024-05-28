@@ -15,5 +15,9 @@ public interface EmpmovDAO {
 
     List<Employeemov> findbytype(String type);
 
-    List<Employeemov> findby(@Param("emp_ID")Integer emp_ID, @Param("datea")Date datea, @Param("dateb")Date dateb,@Param("movtype")String movtype);
+    List<Employeemov> findby(@Param("emp_ID")Integer emp_ID, @Param("datea")Date datea, @Param("dateb")Date dateb,@Param("movtype")String movtype,@Param("process_state")String process_state);
+
+    void update(Employeemov mov);
+
+    Employeemov findbyID(int id);
 }

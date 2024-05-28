@@ -35,7 +35,7 @@ public class PositionController {
         return ResponseEntity.ok("添加成功！");
     }
 
-    @GetMapping(value = "/delete")
+    @DeleteMapping(value = "/delete")
     public ResponseEntity<String> delete(@RequestParam int id) {
         try {
             posService.delete(id);
@@ -60,7 +60,7 @@ public class PositionController {
         return allList;
     }
 
-    @PostMapping(value = "update")
+    @PostMapping(value = "/update")
     public ResponseEntity<String> update(@RequestBody Position pos) {
         posService.update(pos);
         return ResponseEntity.ok("更新成功！");
