@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sawyer.dao.EmpmovDAO">
+
+    <!--    查询所有-->
+    <select id="findAll" resultType="Employeemov">
+        select mov.mov_ID,mov.emp_ID,emp.emp_name, mov.before_dep, dep.dep_name, mov.after_dep, dep2.dep_name,mov.before_pos, pos.pos_name, mov.after_pos, pos2.pos_name, mov.mov_date, mov.reason
+        from employmov mov
+        JOIN department dep ON mov.before_dep = dep.dep_ID
+        JOIN department dep2 ON mov.after_dep= dep2.dep_ID
+        JOIN `position` pos ON mov.before_pos = pos.pos_ID
+        JOIN `position` pos2 ON mov.after_pos = pos2.pos_ID
+        JOIN employee emp ON mov.emp_ID = emp.emp_ID
+    </select>
+
+    <select id="findbyemp" parameterType="int" resultType="Employeemov">
+        select mov.mov_ID,mov.emp_ID,emp.emp_name, mov.before_dep, dep1.dep_name, mov.after_dep, dep2.dep_name,
+            mov.before_pos, pos1.pos_name, mov.after_pos, pos2.pos_name, mov.mov_date, mov.reason
+        from employmov mov
+        JOIN department dep1 ON mov.before_dep = dep1.dep_ID
+        JOIN department dep2 ON mov.after_dep = dep2.dep_ID
+        JOIN `position` pos1 ON mov.before_pos = pos1.pos_ID
+        JOIN `position` pos2 ON mov.after_pos = pos2.pos_ID
+        JOIN employee emp ON mov.emp_ID = emp.emp_ID
+        where mov.emp_ID = #{emp_ID}
+    </select>
+    <!--    添加岗位-->
+    <insert id="add" parameterType="Position">
+        insert into employmov(mov_ID, emp_ID, before_dep, after_dep, before_pos, after_pos, mov_date, reason)
+        values (#{mov_ID}, #{emp_ID}, #{before_dep}, #{after_dep}, #{before_pos}, #{after_pos},#{mov_date}, #{reason})
+    </insert>
+
+    <!--    删除记录-->
+    <delete id="delete" parameterType="int">
+        delete from employmov where mov_ID = #{mov_ID}
+    </delete>
+
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sawyer.dao.DepartmentDAO">
+
+    <!--    查询所有-->
+    <select id="findAll" resultType="Department">
+        select dep_ID, dep_name, dep_phone, creat_date, dep_ID, detail from `department`
+    </select>
+
+    <!--    添加部门-->
+    <insert id="add" parameterType="Department">
+        insert into department(dep_ID, dep_name, dep_phone, creat_date,detail) values (#{dep_ID}, #{dep_name}, #{dep_phone}, #{creat_date},#{detail})
+    </insert>
+
+    <!--    删除部门-->
+    <delete id="delete" parameterType="int">
+        delete from department where dep_ID = #{dep_ID}
+    </delete>
+
+    <!--    根据ID查询部门-->
+    <select id="find" parameterType="int" resultType="Department">
+        select dep_ID, dep_name, dep_phone, creat_date,detail from department where dep_ID = #{dep_ID}
+    </select>
+
+    <!--    修改部门-->
+    <update id="update" parameterType="Department">
+        update department
+        <set>
+            <if test="dep_name != null">dep_name = #{dep_name},</if>
+            <if test="dep_phone != null">dep_phone = #{dep_phone},</if>
+            <if test="creat_date != null">creat_date = #{creat_date},</if>
+            <if test="detail != null">detail = #{detail},</if>
+        </set>
+        where dep_ID = #{dep_ID}
+    </update>
+</mapper>
