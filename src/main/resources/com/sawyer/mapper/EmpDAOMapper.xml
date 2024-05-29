@@ -4,7 +4,7 @@
 
     <!-- 查询所有员工信息 -->
     <select id="findAll" resultType="Employee">
-        select emp.emp_ID, emp.emp_name, emp.photo,emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail
+        select emp.emp_ID, emp.emp_name, emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail
         from employee emp
         JOIN department dep ON emp.dep_ID = dep.dep_ID
         JOIN position pos ON emp.pos_ID = pos.pos_ID
@@ -32,7 +32,7 @@
 
     <!-- 根据部门ID查询员工信息 -->
     <select id="findbydep" parameterType="int" resultType="Employee">
-        select emp.emp_ID, emp.emp_name, emp.photo,emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail
+        select emp.emp_ID, emp.emp_name,emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail
         from employee emp
         JOIN department dep ON emp.dep_ID = dep.dep_ID
         JOIN position pos ON emp.pos_ID = pos.pos_ID
@@ -40,7 +40,7 @@
     </select>
 
     <select id="findbypos" parameterType="int" resultType="Employee">
-        select emp.emp_ID, emp.emp_name, emp.photo,emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail
+        select emp.emp_ID, emp.emp_name, emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail
         from employee emp
         JOIN department dep ON emp.dep_ID = dep.dep_ID
         JOIN position pos ON emp.pos_ID = pos.pos_ID
@@ -48,14 +48,14 @@
     </select>
 
     <select id="findbyMode" parameterType="String" resultType="Employee">
-        select emp.emp_ID, emp.emp_name, ,emp.photo, emp.genderemp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail
+        select emp.emp_ID, emp.emp_name, emp.gender,emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail
         from employee emp
                  JOIN department dep ON emp.dep_ID = dep.dep_ID
                  JOIN position pos ON emp.pos_ID = pos.pos_ID
         WHERE entermode = #{mode};
     </select>
     <select id="findbyemptype" parameterType="String" resultType="Employee">
-        select emp.emp_ID, emp.emp_name, emp.photo,emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail
+        select emp.emp_ID, emp.emp_name,emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail
         from employee emp
                  JOIN department dep ON emp.dep_ID = dep.dep_ID
                  JOIN position pos ON emp.pos_ID = pos.pos_ID
@@ -67,7 +67,7 @@
         WHERE emp_ID = #{emp_ID};
     </select>
     <select id="findbyall" resultType="Employee" parameterType="map">
-        select emp.emp_ID, emp.emp_name, emp.photo,emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail
+        select emp.emp_ID, emp.emp_name, emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail
         from employee emp
         JOIN department dep ON emp.dep_ID = dep.dep_ID
         JOIN position pos ON emp.pos_ID = pos.pos_ID

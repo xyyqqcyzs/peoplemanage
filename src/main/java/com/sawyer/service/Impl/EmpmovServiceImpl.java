@@ -1,11 +1,8 @@
 package com.sawyer.service.Impl;
 
-import com.sawyer.dao.EmpDAO;
+
 import com.sawyer.dao.EmpmovDAO;
-import com.sawyer.dao.PositionDAO;
-import com.sawyer.entity.Employee;
 import com.sawyer.entity.Employeemov;
-import com.sawyer.entity.Position;
 import com.sawyer.service.EmpmovService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
