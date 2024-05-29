@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sawyer.dao.ReportDAO">
+
+    <!--    按部门查找    -->
+    <select id="findAll" resultType="Employee">
+        select emp.emp_ID, emp.emp_name, emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail
+        from employee emp
+            JOIN department dep ON emp.dep_ID = dep.dep_ID
+            JOIN position pos ON emp.pos_ID = pos.pos_ID
+    </select>
+
+    <!-- 根据部门ID查询员工信息 -->
+    <select id="findbydep" parameterType="int" resultType="Employee">
+        select emp.emp_ID, emp.emp_name, emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail
+        from employee emp
+                 JOIN department dep ON emp.dep_ID = dep.dep_ID
+                 JOIN position pos ON emp.pos_ID = pos.pos_ID
+        WHERE emp.dep_ID = #{dep_ID};
+    </select>
+
+    <!-- 根据岗位ID查询员工信息 -->
+    <select id="findbypos" parameterType="int" resultType="Employee">
+        select emp.emp_ID, emp.emp_name, emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail
+        from employee emp
+                 JOIN department dep ON emp.dep_ID = dep.dep_ID
+                 JOIN position pos ON emp.pos_ID = pos.pos_ID
+        WHERE emp.pos_ID = #{pos_ID};
+    </select>
+
+    <!--    按入职日期查找   -->
+    <select id="findByDate" parameterType="map" resultType="com.sawyer.entity.Employee">
+        select emp.emp_ID, emp.emp_name, emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail
+        from employee emp
+        JOIN department dep ON emp.dep_ID = dep.dep_ID
+        JOIN position pos ON emp.pos_ID = pos.pos_ID
+        <where>
+            <if test="startDate != null and endDate != null">
+                AND emp.date BETWEEN #{startDate} AND #{endDate}
+            </if>
+            <if test="startDate != null and endDate == null">
+                AND emp.date &gt;= #{startDate}
+            </if>
+            <if test="startDate == null and endDate != null">
+                AND emp.date &lt;= #{endDate}
+            </if>
+        </where>
+    </select>
+
+    <!--    按转正日期查找   -->
+    <select id="findByConDate" parameterType="map" resultType="com.sawyer.entity.Employee">
+        select emp.emp_ID, emp.emp_name, emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail
+        from employee emp
+        JOIN department dep ON emp.dep_ID = dep.dep_ID
+        JOIN position pos ON emp.pos_ID = pos.pos_ID
+        <where>
+            <if test="startDate != null and endDate != null">
+                AND emp.confirm_date BETWEEN #{startDate} AND #{endDate}
+            </if>
+            <if test="startDate != null and endDate == null">
+                AND emp.confirm_date &gt;= #{startDate}
+            </if>
+            <if test="startDate == null and endDate != null">
+                AND emp.confirm_date &lt;= #{endDate}
+            </if>
+        </where>
+    </select>
+
+
+
+</mapper>
