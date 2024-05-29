@@ -34,16 +34,13 @@ public class DimController {
     }
 
     @PostMapping(value = "/add")
-    public ResponseEntity<String> add(@RequestParam int emp_ID,
-                                      @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date dim_date,
-                                      @RequestParam String dim_reason) {
-        dimService.add(emp_ID, dim_date, dim_reason);
+    public ResponseEntity<String> add(@RequestBody Dimission dim) {
+        dimService.add(dim);
         return ResponseEntity.ok("添加成功");
     }
 
     @GetMapping(value = "/delete")
     public ResponseEntity<String> delete(@RequestParam int id) {
-
         try {
             dimService.delete(id);
             return ResponseEntity.ok("删除成功");
