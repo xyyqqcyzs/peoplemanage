@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.sql.Blob;
 import java.sql.Date;
 
 @Data
@@ -14,6 +15,7 @@ import java.sql.Date;
 public class Employee {
     private Integer emp_ID;
     private String emp_name;
+    private Byte[] photo;
     private String gender;
     private Integer dep_ID;
     private String dep_name;
@@ -31,7 +33,6 @@ public class Employee {
     private Date confirm_date;
     private String intern_situation;
     private String intern_detail;
-
 
     public void get_mov_Emp_ID(int mov_Emp_ID) {
         this.emp_ID = mov_Emp_ID;

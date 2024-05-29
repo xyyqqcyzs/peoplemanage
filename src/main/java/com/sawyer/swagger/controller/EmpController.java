@@ -130,14 +130,6 @@ public class EmpController {
         return career;
     }
 
-
-
-    //员工信息更新
-    /*@PostMapping(value = "update")
-    public String update(@ResponseBody Employee emp) {
-        empService.update(emp);
-        return "更新成功";
-    }*/
     @PutMapping(value = "/update")//更新值不能为空
     public ResponseEntity<String> update(@RequestBody Employee emp) {
         empService.update(emp);
