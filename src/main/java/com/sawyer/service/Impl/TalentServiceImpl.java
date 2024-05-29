@@ -1,10 +1,6 @@
 package com.sawyer.service.Impl;
 
-import com.sawyer.dao.EmpDAO;
 import com.sawyer.dao.TalentDAO;
-import com.sawyer.entity.Career;
-import com.sawyer.entity.Employee;
-import com.sawyer.entity.Employeemov;
 import com.sawyer.entity.Talentpool;
 import com.sawyer.service.TalentService;
 import org.springframework.beans.factory.annotation.Autowired;

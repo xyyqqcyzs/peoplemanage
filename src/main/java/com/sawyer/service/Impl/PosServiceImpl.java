@@ -1,8 +1,6 @@
 package com.sawyer.service.Impl;
 
-import com.sawyer.dao.DepartmentDAO;
 import com.sawyer.dao.PositionDAO;
-import com.sawyer.entity.Department;
 import com.sawyer.entity.Position;
 import com.sawyer.service.PosService;
 import org.springframework.beans.factory.annotation.Autowired;
