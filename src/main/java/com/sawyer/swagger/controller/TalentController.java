@@ -1,11 +1,8 @@
 package com.sawyer.swagger.controller;
 
 
-import com.sawyer.entity.Career;
-import com.sawyer.entity.Employee;
-import com.sawyer.entity.Findemp;
+
 import com.sawyer.entity.Talentpool;
-import com.sawyer.service.EmpService;
 import com.sawyer.service.TalentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
