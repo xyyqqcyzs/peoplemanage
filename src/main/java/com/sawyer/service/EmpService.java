@@ -28,4 +28,5 @@ public interface EmpService {
     Career findcareer(int id);
 
     List<Employee> findbyall(Integer dep_ID, Integer pos_ID, Date datea, Date dateb,String entermode, String emp_type, Date confirm_datea, Date confirm_dateb,String intern_situation);
+
 }

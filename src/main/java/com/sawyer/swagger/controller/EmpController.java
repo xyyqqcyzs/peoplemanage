@@ -8,11 +8,11 @@ import com.sawyer.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.util.List;
+
 
 @Controller
 @RestController
@@ -28,6 +28,7 @@ public class EmpController {
         List<Employee> allList = empService.findAll();
         return allList;
     }
+
 
     //多值查询：部门ID，岗位ID，入职日期，转正日期，入职方式（人才库入职，普通入职），
     // 员工类型（正式员工，实习生），实习情况（正常实习，延期，未通过，已转正）
