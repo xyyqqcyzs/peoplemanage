@@ -15,7 +15,7 @@ import java.sql.Date;
 public class Employee {
     private Integer emp_ID;
     private String emp_name;
-    private Byte[] photo;
+    //private Byte[] photo;
     private String gender;
     private Integer dep_ID;
     private String dep_name;
