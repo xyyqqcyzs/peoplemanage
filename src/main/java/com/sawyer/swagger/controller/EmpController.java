@@ -5,13 +5,19 @@ import com.sawyer.entity.Career;
 import com.sawyer.entity.Employee;
 import com.sawyer.entity.Findemp;
 import com.sawyer.service.EmpService;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.UUID;
 
 
 @Controller
@@ -36,13 +42,42 @@ public class EmpController {
     public List<Employee> findbyall(@RequestBody Findemp find) {
         Integer dep_ID = find.getDep_ID(); // Integer 类型可接受 null 值
         Integer pos_ID = find.getPos_ID();
-        Date datea = find.getDatea();
-        Date dateb = find.getDateb();
+        String datea = find.getDatea();
+        String dateb = find.getDateb();
         String entermode = find.getEntermode();
         String emp_type = find.getEmp_type();
-        Date confirm_datea = find.getConfirm_datea();
-        Date confirm_dateb = find.getConfirm_dateb();
+        String confirm_datea = find.getConfirm_datea();
+        String confirm_dateb = find.getConfirm_dateb();
         String intern_situation = find.getIntern_situation();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        java.sql.Date sqlDateA = null;
+        java.sql.Date sqlDateB = null;
+        java.sql.Date sqlConfirmDateA = null;
+        java.sql.Date sqlConfirmDateB = null;
+
+        try {
+            if(datea!=null){
+            java.util.Date utilDateA = sdf.parse(datea);
+            sqlDateA = new java.sql.Date(utilDateA.getTime());}
+
+            if (dateb!=null){
+            java.util.Date utilDateB = sdf.parse(dateb);
+            sqlDateB = new java.sql.Date(utilDateB.getTime());}
+
+            if(confirm_datea!=null){
+            java.util.Date utilConfirmDateA = sdf.parse(confirm_datea);
+            sqlConfirmDateA = new java.sql.Date(utilConfirmDateA.getTime());}
+
+           if(confirm_dateb!=null){
+            java.util.Date utilConfirmDateB = sdf.parse(confirm_dateb);
+            sqlConfirmDateB = new java.sql.Date(utilConfirmDateB.getTime());}
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            //处理可能的 ParseException 异常
+        }
 
         // Check if the values are null and set them to null if needed
         if ("".equals(entermode)) {
@@ -55,7 +90,7 @@ public class EmpController {
             intern_situation = null;
         }
         // Repeat the null check and conversion for other fields
-        List<Employee> allList = empService.findbyall(dep_ID, pos_ID, datea, dateb,entermode, emp_type, confirm_datea, confirm_dateb, intern_situation);
+        List<Employee> allList = empService.findbyall(dep_ID, pos_ID, sqlDateA, sqlDateB,entermode, emp_type, sqlConfirmDateA, sqlConfirmDateB, intern_situation);
         return allList;
     }
 
@@ -103,7 +138,19 @@ public class EmpController {
 
 
     //添加员工,普通入职
-    @PostMapping(value = "/add")
+     /* @PostMapping(value = "/add")
+    public ResponseEntity<String> add(@RequestBody Employee emp) {
+        MultipartFile photo = emp.getPhoto();
+        String randonumber = UUID.randomUUID().toString().replace("-","");
+        String oldfipename = photo.getOriginalFilename();
+        String extension  = FilenameUtils.getExtension(photo.getOriginalFilename());
+        String newFilename = randonumber + "." + extension;
+
+        File datedir = new File(uploadFolder);
+        empService.add(emp);
+        return ResponseEntity.ok("添加成功");
+    }*/
+  @PostMapping(value = "/add")
     public ResponseEntity<String> add(@RequestBody Employee emp) {
         empService.add(emp);
         return ResponseEntity.ok("添加成功");
@@ -121,6 +168,7 @@ public class EmpController {
     @GetMapping(value = "/findbyID")
     public Employee findbyID(@RequestParam int id) {
         Employee emp = empService.findbyID(id);
+        
         return emp;
     }
 
@@ -136,6 +184,5 @@ public class EmpController {
         empService.update(emp);
         return ResponseEntity.ok("更新成功");
     }
-
 
 }
