@@ -47,14 +47,14 @@ public class UserController {
     }
 
     @PostMapping(value = "/login")
-    public String login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
         String account = loginRequest.getAccount();
         String password = loginRequest.getPassword();
         User login = userService.login(account,password);
         if (login != null) {
-            return "登陆成功";
+            return ResponseEntity.ok("登陆成功");
         } else {
-            return "登陆失败";
+            return ResponseEntity.ok("登陆失败");
         }
     }
 
