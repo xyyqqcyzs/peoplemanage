@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sawyer.dao.DimissionDAO">
+
+    <!-- 查询离职员工信息 -->
+    <select id="findAll" resultType="Dimission">
+        select dim.emp_ID,dim.dim_date,dim.dim_reason,emp.emp_name,emp.gender,emp.dep_ID,dep.dep_name,emp.pos_ID,pos.pos_name,emp.date,emp.confirm_date
+            from dimission dim
+            JOIN employee emp ON dim.emp_ID = emp.emp_ID
+            JOIN department dep ON emp.dep_ID = dep.dep_ID
+            JOIN position pos ON emp.pos_ID = pos.pos_ID
+    </select>
+
+    <!--    添加离职人员 -->
+    <insert id="add" parameterType="map">
+        insert into dimission(emp_ID, dim_date, dim_reason,emp_name,gender,dep_ID,dep_name,pos_ID,pos_name,date,confirm_date )
+        select (#{emp_ID}, #{dim_date}, #{dim_reason} ,e.emp_name,e.gender,e.dep_ID,dep.dep_name,e.pos_ID,pos.pos_name,e.date,e.confirm_date)
+        from employee e ;
+        JOIN department dep ON e.dep_ID = dep.dep_ID ;
+        JOIN position pos ON e.pos_ID = pos.pos_ID ;
+        WHERE e.emp_ID = #{emp_ID};
+
+        DELETE FROM employee WHERE emp_ID = #{emp_ID};
+    </insert>
+
+
+
+    <!--    删除离职人员 -->
+    <delete id="delete" parameterType="int">
+        delete from dimission where emp_ID = #{emp_ID}
+    </delete>
+
+    <!--    根据ID查询离职人员-->
+    <select id="findbyID" parameterType="int" resultType="Dimission">
+        select dim.emp_ID,dim.dim_date,dim.dim_reason,emp.emp_name,emp.gender,emp.dep_ID,dep.dep_name,emp.pos_ID,pos.pos_name,emp.date,emp.confirm_date
+        from dimission dim
+            JOIN employee emp ON dim.emp_ID = emp.emp_ID
+            JOIN department dep ON emp.dep_ID = dep.dep_ID
+            JOIN position pos ON emp.pos_ID = pos.pos_ID
+        WHERE dim.emp_ID = #{emp_ID};
+    </select>
+
+    <!--    按岗位查找    -->
+    <select id="findbypos" parameterType="int" resultType="com.sawyer.entity.Dimission">
+        SELECT dim.emp_ID, dim.dim_date, dim.dim_reason,
+               emp.emp_name, emp.gender, emp.dep_ID, dep.dep_name,
+               emp.pos_ID, pos.pos_name, emp.date, emp.confirm_date
+        FROM dimission dim
+                 JOIN employee emp ON dim.emp_ID = emp.emp_ID
+                 JOIN department dep ON emp.dep_ID = dep.dep_ID
+                 JOIN position pos ON emp.pos_ID = pos.pos_ID
+        WHERE emp.pos_ID = #{pos_ID};
+    </select>
+
+    <!--    按部门查找    -->
+    <select id="findbydep" parameterType="int" resultType="com.sawyer.entity.Dimission">
+        SELECT dim.emp_ID, dim.dim_date, dim.dim_reason,
+               emp.emp_name, emp.gender, emp.dep_ID, dep.dep_name,
+               emp.pos_ID, pos.pos_name, emp.date, emp.confirm_date
+        FROM dimission dim
+                 JOIN employee emp ON dim.emp_ID = emp.emp_ID
+                 JOIN department dep ON emp.dep_ID = dep.dep_ID
+                 JOIN position pos ON emp.pos_ID = pos.pos_ID
+        WHERE emp.dep_ID = #{dep_ID};
+    </select>
+
+
+    <!--    按日期查找   -->
+    <select id="findByDateRange" parameterType="map" resultType="com.sawyer.entity.Dimission">
+        SELECT dim.emp_ID, dim.dim_date, dim.dim_reason,
+        emp.emp_name, emp.gender, emp.dep_ID, dep.dep_name,
+        emp.pos_ID, pos.pos_name, emp.date, emp.confirm_date
+        FROM dimission dim
+        JOIN employee emp ON dim.emp_ID = emp.emp_ID
+        JOIN department dep ON emp.dep_ID = dep.dep_ID
+        JOIN position pos ON emp.pos_ID = pos.pos_ID
+        <where>
+            <if test="startDate != null and endDate != null">
+                AND dim.dim_date BETWEEN #{startDate} AND #{endDate}
+            </if>
+            <if test="startDate != null and endDate == null">
+                AND dim.dim_date &gt;= #{startDate}
+            </if>
+            <if test="startDate == null and endDate != null">
+                AND dim.dim_date &lt;= #{endDate}
+            </if>
+        </where>
+    </select>
+
+
+
+</mapper>

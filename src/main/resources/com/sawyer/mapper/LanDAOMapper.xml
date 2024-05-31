@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sawyer.dao.LanguageDAO">
+
+    <select id="findbyemp" parameterType="int" resultType="Language">
+        select lan.language_ID, lan.emp_ID, emp.emp_name,lan.language_name,lan.proficiency_level
+        from language_skills lan
+        JOIN employee emp ON lan.emp_ID = emp.emp_ID
+        where lan.emp_ID = #{emp_ID}
+    </select>
+
+    <insert id="add" parameterType="Language">
+        insert into language_skills(language_ID, emp_ID,language_name,proficiency_level) values (#{language_ID}, #{emp_ID},#{language_name}, #{proficiency_level})
+    </insert>
+
+
+    <delete id="delete" parameterType="int">
+        delete from language_skills where language_ID = #{language_ID}
+    </delete>
+
+    <!--    修改岗位-->
+    <update id="update" parameterType="Language">
+        update language_skills
+        <set>
+            <if test="language_ID != null">language_ID = #{language_ID},</if>
+            <if test="emp_ID != null">emp_ID = #{emp_ID},</if>
+            <if test="language_name != null">language_name = #{language_name},</if>
+            <if test="proficiency_level != null">proficiency_level = #{proficiency_level},</if>
+        </set>
+        where language_ID = #{language_ID}
+    </update>
+</mapper>
