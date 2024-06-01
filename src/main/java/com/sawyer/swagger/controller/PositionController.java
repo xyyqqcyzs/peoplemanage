@@ -32,14 +32,14 @@ public class PositionController {
     @ResponseBody
     public ResponseEntity<String> add(@RequestBody Position pos) {
         posService.add(pos);
-        return ResponseEntity.ok("添加成功！");
+        return ResponseEntity.ok("添加成功");
     }
 
     @DeleteMapping(value = "/delete")
     public ResponseEntity<String> delete(@RequestParam int id) {
         try {
             posService.delete(id);
-            return ResponseEntity.ok("删除成功！");
+            return ResponseEntity.ok("删除成功");
         } catch (Exception e) {
             if (HttpStatus.INTERNAL_SERVER_ERROR.value() == 500) {
                 return ResponseEntity.status(500).body("500错误：该岗位无法删除");
@@ -63,7 +63,7 @@ public class PositionController {
     @PostMapping(value = "/update")
     public ResponseEntity<String> update(@RequestBody Position pos) {
         posService.update(pos);
-        return ResponseEntity.ok("更新成功！");
+        return ResponseEntity.ok("更新成功");
     }
 
 }

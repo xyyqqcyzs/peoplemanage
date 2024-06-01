@@ -110,7 +110,7 @@
             <if test="gender != null">gender = #{gender},</if>
             <if test="dep_ID != null">dep_ID = #{dep_ID},</if>
             <if test="pos_ID != null">pos_ID = #{pos_ID},</if>
-            <if test="date != null">date = #{date},</if>
+            <if test="date != null"> date = #{date},</if>
             <if test="entermode != null">entermode = #{entermode},</if>
             <if test="birthday != null">birthday = #{birthday},</if>
             <if test="phone != null">phone = #{phone},</if>

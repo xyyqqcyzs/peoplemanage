@@ -1,9 +1,12 @@
 package com.sawyer.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.sawyer.entity.init.CustomSqlDateDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
 
@@ -23,11 +26,11 @@ public class Employeemov {
     private String before_posname;
     private Integer after_pos;
     private String after_posname;
+    @JsonDeserialize(using = CustomSqlDateDeserializer.class)
     private Date mov_date;
     private String reason;
     private String movtype;
     private String process_state;
-
 
     public int getAfter_dep() {
         return after_dep;

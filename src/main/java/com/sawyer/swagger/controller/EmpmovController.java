@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Controller
@@ -30,7 +32,7 @@ public class EmpmovController {
     @PostMapping(value = "/add")
     public ResponseEntity<String> add(@RequestBody Employeemov mov) {
         movService.add(mov);
-        return ResponseEntity.ok("添加成功！");
+        return ResponseEntity.ok("添加成功");
     }
     @PutMapping(value = "/update")//更新值不能为空
     public ResponseEntity<String> update(@RequestBody Employeemov mov) {
@@ -76,7 +78,7 @@ public class EmpmovController {
     @DeleteMapping(value = "/delete")
     public ResponseEntity<String> delete(@RequestParam int mov_ID) {
         movService.delete(mov_ID);
-        return ResponseEntity.ok("删除成功！");
+        return ResponseEntity.ok("删除成功");
     }
 
 /*
@@ -99,6 +101,7 @@ public class EmpmovController {
         Date dateb = movtime.getDateb();
         String movtype = movtime.getMovtype();
         String process_state = movtime.getProcess_state();
+
         if ("".equals(movtype)) {
             movtype = null;
         }

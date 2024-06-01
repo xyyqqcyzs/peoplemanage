@@ -30,19 +30,19 @@ public class LanguageController {
     @PostMapping(value = "/add")
     public ResponseEntity<String> add(@RequestBody Language lan) {
         lanService.add(lan);
-        return ResponseEntity.ok("添加成功！");
+        return ResponseEntity.ok("添加成功");
     }
 
     @DeleteMapping(value = "/delete")
     public ResponseEntity<String> delete(@RequestParam int language_ID) {
             lanService.delete(language_ID);
-            return ResponseEntity.ok("删除成功！");
+            return ResponseEntity.ok("删除成功");
     }
 
     @PutMapping(value = "/update")
     public ResponseEntity<String> update(@RequestParam Language lan) {
         lanService.update(lan);
-        return ResponseEntity.ok("更新成功！");
+        return ResponseEntity.ok("更新成功");
     }
 
 }
