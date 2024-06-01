@@ -20,11 +20,9 @@
     </delete>
     <!-- 查询离职员工信息 -->
     <select id="findAll" resultType="Dimission">
-        select dim.emp_ID,dim.dim_date,dim.dim_reason,emp.emp_name,emp.gender,emp.dep_ID,dep.dep_name,emp.pos_ID,pos.pos_name,emp.date,emp.confirm_date
+        select dim.emp_ID,dim.dim_date,dim.dim_reason,dim.emp_name,dim.gender,dim.dep_ID,dim.dep_name,dim.pos_ID,dim.pos_name,dim.date,dim.confirm_date
             from dimission dim
-            JOIN employee emp ON dim.emp_ID = emp.emp_ID
-            JOIN department dep ON emp.dep_ID = dep.dep_ID
-            JOIN position pos ON emp.pos_ID = pos.pos_ID
+
     </select>
 
     <!--    添加离职人员 -->
@@ -40,48 +38,36 @@
 
     <!--    根据ID查询离职人员-->
     <select id="findbyID" parameterType="int" resultType="Dimission">
-        select dim.emp_ID,dim.dim_date,dim.dim_reason,emp.emp_name,emp.gender,emp.dep_ID,dep.dep_name,emp.pos_ID,pos.pos_name,emp.date,emp.confirm_date
+        select dim.emp_ID,dim.dim_date,dim.dim_reason,dim.emp_name,dim.gender,dim.dep_ID,dim.dep_name,dim.pos_ID,dim.pos_name,dim.date,dim.confirm_date
         from dimission dim
-            JOIN employee emp ON dim.emp_ID = emp.emp_ID
-            JOIN department dep ON emp.dep_ID = dep.dep_ID
-            JOIN position pos ON emp.pos_ID = pos.pos_ID
         WHERE dim.emp_ID = #{emp_ID};
     </select>
 
     <!--    按岗位查找    -->
     <select id="findbypos" parameterType="int" resultType="com.sawyer.entity.Dimission">
         SELECT dim.emp_ID, dim.dim_date, dim.dim_reason,
-               emp.emp_name, emp.gender, emp.dep_ID, dep.dep_name,
-               emp.pos_ID, pos.pos_name, emp.date, emp.confirm_date
+               dim.emp_name, dim.gender, dim.dep_ID, dim.dep_name,
+               dim.pos_ID, dim.pos_name, dim.date, dim.confirm_date
         FROM dimission dim
-                 JOIN employee emp ON dim.emp_ID = emp.emp_ID
-                 JOIN department dep ON emp.dep_ID = dep.dep_ID
-                 JOIN position pos ON emp.pos_ID = pos.pos_ID
-        WHERE emp.pos_ID = #{pos_ID};
+        WHERE dim.pos_ID = #{pos_ID};
     </select>
 
     <!--    按部门查找    -->
     <select id="findbydep" parameterType="int" resultType="com.sawyer.entity.Dimission">
         SELECT dim.emp_ID, dim.dim_date, dim.dim_reason,
-               emp.emp_name, emp.gender, emp.dep_ID, dep.dep_name,
-               emp.pos_ID, pos.pos_name, emp.date, emp.confirm_date
+               dim.emp_name, dim.gender, dim.dep_ID, dim.dep_name,
+               dim.pos_ID, dim.pos_name, dim.date, dim.confirm_date
         FROM dimission dim
-                 JOIN employee emp ON dim.emp_ID = emp.emp_ID
-                 JOIN department dep ON emp.dep_ID = dep.dep_ID
-                 JOIN position pos ON emp.pos_ID = pos.pos_ID
-        WHERE emp.dep_ID = #{dep_ID};
+        WHERE dim.dep_ID = #{dep_ID};
     </select>
 
 
     <!--    按日期查找   -->
     <select id="findByDateRange" parameterType="map" resultType="com.sawyer.entity.Dimission">
         SELECT dim.emp_ID, dim.dim_date, dim.dim_reason,
-        emp.emp_name, emp.gender, emp.dep_ID, dep.dep_name,
-        emp.pos_ID, pos.pos_name, emp.date, emp.confirm_date
+        dim.emp_name, dim.gender, dim.dep_ID, dim.dep_name,
+        dim.pos_ID, dim.pos_name, dim.date, dim.confirm_date
         FROM dimission dim
-        JOIN employee emp ON dim.emp_ID = emp.emp_ID
-        JOIN department dep ON emp.dep_ID = dep.dep_ID
-        JOIN position pos ON emp.pos_ID = pos.pos_ID
         <where>
             <if test="startDate != null and endDate != null">
                 AND dim.dim_date BETWEEN #{startDate} AND #{endDate}

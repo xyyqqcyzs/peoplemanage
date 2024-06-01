@@ -35,8 +35,16 @@ public class DimServiceImpl implements DimService {
         dim.setConfirm_date(employee.getConfirm_date());
 
 
+
+
         //加入离职记录
-        dimissionDAO.addDimission(dim);
+        //删除离职人员
+        try {
+            dimissionDAO.addDimission(dim);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to delete employee with ID: " + dim.getEmp_ID(), e);
+        }
+
         //删除离职人员
         try {
             dimissionDAO.deleteEmployeeById(dim.getEmp_ID());
