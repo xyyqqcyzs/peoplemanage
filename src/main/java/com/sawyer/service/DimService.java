@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface DimService {
 
+    public void addDim(Dimission dim);
     List<Dimission> findAll();
 
     void add(Dimission dim);

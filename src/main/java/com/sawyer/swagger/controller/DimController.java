@@ -38,7 +38,11 @@ public class DimController {
         dimService.add(dim);
         return ResponseEntity.ok("添加成功");
     }
-
+    @PostMapping(value = "/addDim")
+    public ResponseEntity<String> addDim(@RequestBody Dimission dim) {
+        dimService.addDim(dim);
+        return ResponseEntity.ok("新增离职成功");
+    }
     @GetMapping(value = "/delete")
     public ResponseEntity<String> delete(@RequestParam int id) {
         try {

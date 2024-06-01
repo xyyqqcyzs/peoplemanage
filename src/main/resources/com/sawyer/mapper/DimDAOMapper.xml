@@ -2,6 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sawyer.dao.DimissionDAO">
 
+    <!-- 查询员工信息 -->
+    <select id="selectEmployeeById" parameterType="int" resultType="Employee">
+        SELECT emp.emp_ID, emp.emp_name,emp.pos_ID,emp.dep_ID,emp.gender,emp.date,emp.confirm_date
+        FROM employee emp
+        WHERE emp.emp_ID = #{emp_ID}
+    </select>
+
+    <!-- 添加离职人员 -->
+    <insert id="addDimission" parameterType="Dimission">
+        INSERT INTO dimission(emp_ID, emp_name, gender,pos_ID, pos_name, dep_ID, dep_name, date,confirm_date, dim_date, dim_reason)
+        VALUES (#{emp_ID}, #{emp_name}, #{gender},#{pos_ID}, #{pos_name}, #{dep_ID}, #{dep_name}, #{date},#{confirm_date}, #{dim_date}, #{dim_reason});
+    </insert>
+    <!-- 删除员工记录 -->
+    <delete id="deleteEmployeeById" parameterType="int">
+        DELETE FROM employee WHERE emp_ID = #{emp_ID};
+    </delete>
     <!-- 查询离职员工信息 -->
     <select id="findAll" resultType="Dimission">
         select dim.emp_ID,dim.dim_date,dim.dim_reason,emp.emp_name,emp.gender,emp.dep_ID,dep.dep_name,emp.pos_ID,pos.pos_name,emp.date,emp.confirm_date
@@ -19,7 +35,7 @@
 
     <!--    删除离职人员 -->
     <delete id="delete" parameterType="int">
-        delete from dimission_emp where emp_ID = #{emp_ID}
+        delete from dimission where emp_ID = #{emp_ID}
     </delete>
 
     <!--    根据ID查询离职人员-->

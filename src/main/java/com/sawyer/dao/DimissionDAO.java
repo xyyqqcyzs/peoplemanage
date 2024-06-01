@@ -11,6 +11,10 @@ public interface DimissionDAO {
 
     List<Dimission> findAll();
 
+    public Employee selectEmployeeById(int emp_ID);
+    void   addDimission ( Dimission dim);
+    void deleteEmployeeById(int emp_ID);
+
     void add(Dimission dim);
     void deleteEmployee(int emp_ID);
 
