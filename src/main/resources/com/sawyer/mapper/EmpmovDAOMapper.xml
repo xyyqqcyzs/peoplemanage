@@ -67,7 +67,7 @@
             <if test="movtype != null">
                 <![CDATA[AND mov.movtype = #{movtype} ]]>
             </if>
-            <if test="movtype != null">
+            <if test="process_state != null">
                 <![CDATA[AND mov.process_state = #{process_state} ]]>
             </if>
         </where>
