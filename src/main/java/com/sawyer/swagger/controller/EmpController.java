@@ -117,18 +117,18 @@ public class EmpController {
     }*/
 
     //根据员工入职方式查询
-    @GetMapping(value = "/findbyMode")
+    /*@GetMapping(value = "/findbyMode")
     public List<Employee> findbyMode(@RequestParam String mode){
         List<Employee> allList = empService.findbyMode(mode);
         return allList;
-    }
+    }*/
 
     //根据员工类型查询（实习生，正式员工）
-    @GetMapping(value = "/findbyemptype")
+    /*@GetMapping(value = "/findbyemptype")
     public List<Employee> findbyemptype(@RequestParam String emp_type){
         List<Employee> allList = empService.findbyemptype(emp_type);
         return allList;
-    }
+    }*/
     /*@PostMapping(value = "findbyemptype")
     public ResponseEntity<List<Employee>> findbyemptype(@RequestParam String emp_type){
         List<Employee> allList = empService.findbyemptype(emp_type);
@@ -152,6 +152,10 @@ public class EmpController {
     }*/
   @PostMapping(value = "/add")
     public ResponseEntity<String> add(@RequestBody Employee emp) {
+      Date confirm_date = emp.getConfirm_date();
+      if("".equals(confirm_date)){
+          emp.setConfirm_date(null);
+      }
         empService.add(emp);
         return ResponseEntity.ok("添加成功");
     }
@@ -173,11 +177,11 @@ public class EmpController {
     }
 
     //根据ID查询员工学业背景和工作经历
-    @GetMapping(value="/findcareer")
+    /*@GetMapping(value="/findcareer")
     public Career findcareer(@RequestParam int id){
         Career career = empService.findcareer(id);
         return career;
-    }
+    }*/
 
     @PutMapping(value = "/update")//更新值不能为空
     public ResponseEntity<String> update(@RequestBody Employee emp) {

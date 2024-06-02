@@ -56,7 +56,7 @@
                  JOIN employee emp ON mov.emp_ID = emp.emp_ID
         <where>
             <if test="emp_ID != null">
-                <![CDATA[AND mov.emp_ID >= #{emp_ID} ]]>
+                <![CDATA[AND mov.emp_ID = #{emp_ID} ]]>
             </if>
             <if test="datea != null">
                 <![CDATA[AND mov.mov_date >= #{datea} ]]>

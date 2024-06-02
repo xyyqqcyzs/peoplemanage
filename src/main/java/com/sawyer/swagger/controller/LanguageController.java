@@ -40,7 +40,7 @@ public class LanguageController {
     }
 
     @PutMapping(value = "/update")
-    public ResponseEntity<String> update(@RequestParam Language lan) {
+    public ResponseEntity<String> update(@RequestBody Language lan) {
         lanService.update(lan);
         return ResponseEntity.ok("更新成功");
     }

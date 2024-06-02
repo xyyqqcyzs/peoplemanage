@@ -40,11 +40,11 @@ public class EmpmovController {
         return ResponseEntity.ok("更新成功");
     }
 
-    @GetMapping(value = "/findbyID")
+    /*@GetMapping(value = "/findbyID")
     public Employeemov findbyID(@RequestParam int id) {
         Employeemov mov = movService.findbyID(id);
         return mov;
-    }
+    }*/
 
     @PostMapping(value = "/process")
     public ResponseEntity<String> process(@RequestBody Process process) {
