@@ -9,7 +9,8 @@ public interface DimService {
 
     List<Dimission> findAll();
 
-    void add(Dimission dim);
+    //void add(int emp_ID, Date dim_date, String dim_reason);
+
     void deleteEmployee(int emp_ID);
 
     void delete(int id);

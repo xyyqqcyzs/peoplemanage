@@ -1,17 +1,22 @@
 package com.sawyer.service;
 import org.apache.poi.ss.usermodel.Workbook;
-
+import java.io.IOException;
+import java.io.ByteArrayInputStream;
 import com.sawyer.entity.Employee;
+
+import java.util.Date;
 import java.util.List;
 
 public interface RepService {
 
-    //List<Employee> findAll();
+    ByteArrayInputStream findAll() throws IOException;
 
-    List<Employee> findbydep(int dep_ID);
+    ByteArrayInputStream findbydep(int dep_ID) throws IOException;
 
-    List<Employee> findbypos(int pos_ID);
+    ByteArrayInputStream findbypos(int pos_ID) throws IOException;
 
-    //Workbook generateExcelReport(List<Employee> employees);
+    ByteArrayInputStream findByDate(Date startDate, Date endDate) throws IOException;
+
+    ByteArrayInputStream findByConDate(Date startDate, Date endDate) throws IOException;
 
 }

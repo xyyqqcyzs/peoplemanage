@@ -24,8 +24,8 @@ public class DimServiceImpl implements DimService{
     @Transactional(propagation = Propagation.SUPPORTS)
     public List<Dimission> findAll() {return dimissionDAO.findAll();}
 
-    @Override
-    public void add(Dimission dim) {dimissionDAO.add(dim);}
+    //@Override
+    //public void add(int emp_ID, Date dim_date, String dim_reason) {dimissionDAO.add(emp_ID,dim_date,dim_reason);}
 
     @Override
     public void deleteEmployee(int id) {dimissionDAO.deleteEmployee(id);}
@@ -47,15 +47,6 @@ public class DimServiceImpl implements DimService{
 
     @Override
     public List<Dimission> findByDateRange(Date startDate, Date endDate) {
-//        if (startDate == null && endDate != null) {
-//            startDate = new Date(0); // 设置为最小日期
-//        } else if (endDate == null && startDate != null) {
-//            endDate =  new Date(); // 设置为当前日期
-//        } else if (startDate == null && endDate == null) {
-//            return dimissionDAO.findAll();
-//        } else
-//            return dimissionDAO.findByDateRange(startDate, endDate);
-
         return dimissionDAO.findByDateRange(startDate, endDate);
     }
 }
