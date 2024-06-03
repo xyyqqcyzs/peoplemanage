@@ -7,10 +7,10 @@ import java.util.List;
 
 public interface DimService {
 
+    public void addDim(Dimission dim);
     List<Dimission> findAll();
 
-    //void add(int emp_ID, Date dim_date, String dim_reason);
-
+    void add(Dimission dim);
     void deleteEmployee(int emp_ID);
 
     void delete(int id);

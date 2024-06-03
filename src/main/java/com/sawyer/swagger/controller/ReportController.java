@@ -90,4 +90,48 @@ public class ReportController {
                 .body(new InputStreamResource(in));
     }
 
+    @GetMapping("/employees/department/{dep_ID}/date-range")
+    public ResponseEntity<InputStreamResource> downloadDepartmentDateRangeEmployeeReport(@PathVariable int dep_ID,
+                                                                                         @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date startDate,
+                                                                                         @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date endDate) throws IOException {
+        ByteArrayInputStream in = reportService.findbydepanddate(dep_ID, startDate, endDate);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename=department_" + dep_ID + "_employees_" + startDate + "_to_" + endDate + ".xlsx");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(new InputStreamResource(in));
+    }
+
+    @GetMapping("/employees/dimission/{dep_ID}/date-range")
+    public ResponseEntity<InputStreamResource> downloadDepartmentDateRangeDimissionReport(@PathVariable int dep_ID,
+                                                                                         @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date startDate,
+                                                                                         @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date endDate) throws IOException {
+        ByteArrayInputStream in = reportService.finddimbydate(dep_ID, startDate, endDate);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename=department_" + dep_ID + "_dimissions_" + startDate + "_to_" + endDate + ".xlsx");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(new InputStreamResource(in));
+    }
+
+    @GetMapping("/employee/employeemov/date-range")
+    public ResponseEntity<InputStreamResource> downloadDateRangeEmployeemovReport(@RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date startDate,
+                                                                                  @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date endDate) throws IOException {
+        ByteArrayInputStream in = reportService.findmovebydate(startDate, endDate);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename=dateRange_" + startDate + endDate + "_employeemovs.xlsx");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(new InputStreamResource(in));
+    }
+
 }

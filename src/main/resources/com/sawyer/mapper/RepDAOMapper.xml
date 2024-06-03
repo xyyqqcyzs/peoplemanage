@@ -66,6 +66,71 @@
         </where>
     </select>
 
+    <!--   查找？部门？时间入职的员工   -->
+    <select id="findbydepanddate" parameterType="map" resultType="com.sawyer.entity.Employee">
+        select emp.emp_ID, emp.emp_name, emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode, emp.birthday, emp.phone, emp.email, emp.address, emp.work_experience, emp.academic_background, emp.emp_type, emp.confirm_date, emp.intern_situation, emp.intern_detail
+        from employee emp
+        JOIN department dep ON emp.dep_ID = dep.dep_ID
+        JOIN position pos ON emp.pos_ID = pos.pos_ID
+        <where>
+            <if test="dep_ID != null">
+                AND emp.dep_ID = #{dep_ID}
+            </if>
+            <if test="startDate != null and endDate != null">
+                AND emp.date BETWEEN #{startDate} AND #{endDate}
+            </if>
+            <if test="startDate != null and endDate == null">
+                AND emp.date &gt;= #{startDate}
+            </if>
+            <if test="startDate == null and endDate != null">
+                AND emp.date &lt;= #{endDate}
+            </if>
+        </where>
+    </select>
 
+
+<!--    查找？部门？时间离职的员工-->
+    <select id="finddimbydate" parameterType="map" resultType="com.sawyer.entity.Dimission">
+        select dim.emp_ID, dim.emp_name, dim.gender, dim.dep_ID, dim.dep_name, dim.pos_ID, dim.pos_name, dim.date, dim.confirm_date
+         from dimission dim
+--         JOIN department dep ON dim.dep_ID = dep.dep_ID
+--         JOIN position pos ON dim.pos_ID = pos.pos_ID
+        <where>
+            <if test="dep_ID != null">
+                AND dim.dep_ID = #{dep_ID}
+            </if>
+            <if test="startDate != null and endDate != null">
+                AND dim.dim_date BETWEEN #{startDate} AND #{endDate}
+            </if>
+            <if test="startDate != null and endDate == null">
+                AND dim.dim_date &gt;= #{startDate}
+            </if>
+            <if test="startDate == null and endDate != null">
+                AND dim.dim_date &lt;= #{endDate}
+            </if>
+        </where>
+    </select>
+
+<!--    查找？时间调动部门或岗位的员工-->
+    <select id="findmovebydate" parameterType="map" resultType="com.sawyer.entity.Employeemov">
+        select mov.mov_ID,mov.emp_ID,emp.emp_name, mov.before_dep, dep.dep_name as before_dep_name, mov.after_dep, dep2.dep_name as after_dep_name,mov.before_pos, pos.pos_name as before_pos_name, mov.after_pos, pos2.pos_name as after_pos_name, mov.mov_date, mov.reason
+        from employmov mov
+        JOIN department dep ON mov.before_dep = dep.dep_ID
+        JOIN department dep2 ON mov.after_dep= dep2.dep_ID
+        JOIN `position` pos ON mov.before_pos = pos.pos_ID
+        JOIN `position` pos2 ON mov.after_pos = pos2.pos_ID
+        JOIN employee emp ON mov.emp_ID = emp.emp_ID
+        <where>
+            <if test="startDate != null and endDate != null">
+                AND mov.mov_date BETWEEN #{startDate} AND #{endDate}
+            </if>
+            <if test="startDate != null and endDate == null">
+                AND mov.mov_date &gt;= #{startDate}
+            </if>
+            <if test="startDate == null and endDate != null">
+                AND mov.mov_date &lt;= #{endDate}
+            </if>
+        </where>
+    </select>
 
 </mapper>

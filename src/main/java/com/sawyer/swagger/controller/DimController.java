@@ -1,6 +1,8 @@
 package com.sawyer.swagger.controller;
 
 import com.sawyer.entity.Dimission;
+import com.sawyer.service.EmpService;
+import com.sawyer.entity.ResponseMessage;
 import com.sawyer.service.DimService;
 import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -9,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RestController
@@ -29,14 +33,16 @@ public class DimController {
         return allList;
     }
 
-//    @PostMapping(value = "/add")
-//    public ResponseEntity<String> add(@RequestParam int emp_ID,
-//                                      @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date dim_date,
-//                                      @RequestParam String dim_reason) {
-//        dimService.add(emp_ID, dim_date, dim_reason);
-//        return ResponseEntity.ok("添加成功");
-//    }
-
+    @PostMapping(value = "/add")
+    public ResponseEntity<String> add(@RequestBody Dimission dim) {
+        dimService.add(dim);
+        return ResponseEntity.ok("添加成功");
+    }
+    @PostMapping(value = "/addDim")
+    public ResponseEntity<String> addDim(@RequestBody Dimission dim) {
+        dimService.addDim(dim);
+        return ResponseEntity.ok("新增离职成功");
+    }
     @GetMapping(value = "/delete")
     public ResponseEntity<String> delete(@RequestParam int id) {
         try {

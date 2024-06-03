@@ -19,4 +19,10 @@ public interface RepService {
 
     ByteArrayInputStream findByConDate(Date startDate, Date endDate) throws IOException;
 
+    ByteArrayInputStream findbydepanddate(int dep_ID, Date startDate, Date endDate) throws IOException;
+
+    ByteArrayInputStream finddimbydate(int dep_ID, Date startDate, Date endDate) throws IOException;
+
+    ByteArrayInputStream findmovebydate(Date startDate, Date endDate) throws IOException;
+
 }
