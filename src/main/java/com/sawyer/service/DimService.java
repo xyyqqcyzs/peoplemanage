@@ -23,4 +23,5 @@ public interface DimService {
 
     List<Dimission> findByDateRange(Date startDate, Date endDate);
 
+    void update(Dimission dim);
 }

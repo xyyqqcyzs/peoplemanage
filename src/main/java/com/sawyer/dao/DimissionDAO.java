@@ -28,4 +28,6 @@ public interface DimissionDAO {
 
     List<Dimission> findByDateRange(Date startDate, Date endDate);
 
+    void update(Dimission dim);
+
 }

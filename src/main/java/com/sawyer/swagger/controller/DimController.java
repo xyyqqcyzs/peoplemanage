@@ -2,9 +2,9 @@ package com.sawyer.swagger.controller;
 
 import com.sawyer.entity.Dimission;
 import com.sawyer.service.EmpService;
-import com.sawyer.entity.ResponseMessage;
+import com.sawyer.entity.Process;
 import com.sawyer.service.DimService;
-import java.util.Date;
+import java.sql.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
+
 
 @Controller
 @RestController
@@ -38,6 +38,48 @@ public class DimController {
         dimService.add(dim);
         return ResponseEntity.ok("添加成功");
     }
+
+    @PostMapping(value = "/process")
+    public ResponseEntity<String> process(@RequestBody Process process) {
+        int id = process.getId();
+        Date date = process.getDate();
+        try {
+            Dimission dim = dimService.findbyID(id);
+            if (dim == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("离职记录未找到");
+            }
+            dim.setProcess_state("已处理");
+            dim.setDim_date(date);
+            dimService.update(dim);
+            return ResponseEntity.ok("离职记录已处理");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("处理失败: " + e.getMessage());
+        }
+    }
+
+    @PostMapping(value = "/reject")
+    public ResponseEntity<String> reject(@RequestBody Process process) {
+        int id = process.getId();
+        Date date = process.getDate();
+        try {
+            Dimission dim = dimService.findbyID(id);
+            if (dim == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("离职记录未找到");
+            }
+            dim.setProcess_state("已拒绝");
+            dim.setDim_date(date);
+            dimService.update(dim);
+            return ResponseEntity.ok("离职记录已拒绝");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("拒绝失败: " + e.getMessage());
+        }
+    }
+
+
+
+
+
+
     @PostMapping(value = "/addDim")
     public ResponseEntity<String> addDim(@RequestBody Dimission dim) {
         dimService.addDim(dim);

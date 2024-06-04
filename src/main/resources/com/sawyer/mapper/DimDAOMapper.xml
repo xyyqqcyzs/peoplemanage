@@ -81,6 +81,15 @@
         </where>
     </select>
 
+        <!--更新-->
+    <update id="update" parameterType="com.sawyer.entity.Dimission">
+        update `dimission`
+        <set>
+            <if test="dim_date != null">dim_date = #{dim_date},</if>
+            <if test="process_state != null">process_state = #{process_state},</if>
+        </set>
+        where emp_ID = #{emp_ID}
+    </update>
 
 
 </mapper>

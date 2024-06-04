@@ -34,9 +34,6 @@ public class DimServiceImpl implements DimService {
         dim.setDate(employee.getDate());
         dim.setConfirm_date(employee.getConfirm_date());
 
-
-
-
         //加入离职记录
         //删除离职人员
         try {
@@ -92,6 +89,12 @@ public class DimServiceImpl implements DimService {
 
         return dimissionDAO.findByDateRange(startDate, endDate);
     }
+
+    @Override
+    public void update(Dimission dim) {
+        dimissionDAO.update(dim);
+    }
+
 }
 
 

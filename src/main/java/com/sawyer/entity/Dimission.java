@@ -26,5 +26,6 @@ public class Dimission {
     private  String pos_name;
     private Date date; //emp
     private Date confirm_date; //emp
+    private String process_state;
 
 }
