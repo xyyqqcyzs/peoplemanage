@@ -33,4 +33,6 @@ public interface EmpDAO {
                                     @Param("confirm_datea") Date confirm_datea, @Param("confirm_dateb") Date confirm_dateb,@Param("intern_situation") String intern_situation);
 
     List<Employee> findbyprocess(String confirm_process);
+
+    Employee login(@Param("emp_ID") Integer emp_ID, @Param("password") String password);
 }

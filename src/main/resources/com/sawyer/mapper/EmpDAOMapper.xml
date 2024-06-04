@@ -118,6 +118,10 @@
             </if>
         </where>
     </select>
+    <select id="login" resultType="Employee">
+        select  * from employee
+        where emp_ID=#{emp_ID} and password=#{password}
+    </select>
 
     <!-- 修改员工信息 -->
     <update id="update" parameterType="Employee">

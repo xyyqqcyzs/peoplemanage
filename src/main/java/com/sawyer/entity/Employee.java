@@ -40,9 +40,9 @@ public class Employee {
     private String intern_situation;
     private String intern_detail;
     private String confirm_process;
-    private Integer annual_holiday;
+    private Float annual_holiday;
 
-    private  Integer lieu_holiday;
+    private  Float lieu_holiday;
 
     public Integer getPropertyValue(Object obj, String propertyName) throws NoSuchFieldException, IllegalAccessException {
         Field field = obj.getClass().getDeclaredField(propertyName);

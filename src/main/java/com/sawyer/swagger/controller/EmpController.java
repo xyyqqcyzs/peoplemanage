@@ -240,5 +240,17 @@ public class EmpController {
         return ResponseEntity.ok("已处理");
     }
 
+    @PostMapping(value = "/login")
+    public ResponseEntity<String> login(@RequestBody emplogin login) {
+        Integer emp_ID = login.getEmp_ID();
+        String password = login.getPassword();
+        Employee emp = empService.login(emp_ID,password);
+        if (emp != null) {
+            return ResponseEntity.ok("登陆成功");
+        } else {
+            return ResponseEntity.ok("登陆失败");
+        }
+    }
+
 
 }

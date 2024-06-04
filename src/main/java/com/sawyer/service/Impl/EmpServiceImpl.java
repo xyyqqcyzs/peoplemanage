@@ -83,5 +83,7 @@ public class EmpServiceImpl implements EmpService {
     public List<Employee> findbyprocess(String confirm_process) {
         return empDAO.findbyprocess(confirm_process);
     }
-
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public Employee login(Integer emp_ID, String password){return empDAO.login(emp_ID, password);};
 }

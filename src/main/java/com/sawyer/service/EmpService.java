@@ -30,4 +30,6 @@ public interface EmpService {
     List<Employee> findbyall(Integer dep_ID, Integer pos_ID, Date datea, Date dateb,String entermode, String emp_type, Date confirm_datea, Date confirm_dateb,String intern_situation);
 
     List<Employee> findbyprocess(String confirm_process);
+
+    Employee login(Integer emp_ID, String password);
 }
