@@ -47,17 +47,39 @@ public class HolidayController {
         int id = hol.getEmp_ID();
         this.emp = empService.findbyID(id);
         //计算要休假的天数
-        long dateDiff = ChronoUnit.DAYS.between(hol.getStart_date().toLocalDate(),hol.getEnd_date().toLocalDate());
-        int dateDiffInteger = Long.valueOf(dateDiff).intValue();
+        //long dateDiff = ChronoUnit.DAYS.between(hol.getStart_date().toLocalDate(),hol.getEnd_date().toLocalDate());
+        //int dateDiffInteger = Long.valueOf(dateDiff).intValue();
+        //计算要休假的小时数
+       /* long millisecondsDiff = hol.getStart_date().getTime() - hol.getEnd_date().getTime();  // 计算时间差（以毫秒为单位）
+        long secondsDiff = millisecondsDiff / 1000;
+        long minutesDiff = secondsDiff / 60;
+        long hoursDiff = minutesDiff / 60;
+        long day = hoursDiff/24;
+        float days = day;
+        float hours = hoursDiff%24;
+        if(hours <= 4.0){
+            days+=0.5;
+        }else if(hours > 4){
+            days+=1;
+        }*/
+        long hourss = hol.getStart_date().until(hol.getEnd_date(), ChronoUnit.HOURS);
+        long day = hourss/24;
+        float days = day;
+        float hours = hourss%24;
+        if(hours <= 4.0){
+            days+=0.5;
+        }else if(hours > 4){
+            days+=1;
+        }
         //获取要休假的类型：年假/调休假
         String type = hol.getType();
         //计算休假后，剩余年假/调休假天数
         if(type.equals("年假")){
             System.out.println(this.emp.getAnnual_holiday());
-            int new_days = this.emp.getAnnual_holiday() - dateDiffInteger;
+            float new_days = this.emp.getAnnual_holiday() - days;
             this.emp.setAnnual_holiday(new_days);
         }else if(type.equals("调休")){
-            int news_days = emp.getLieu_holiday() - dateDiffInteger;
+            float news_days = emp.getLieu_holiday() - days;
             emp.setLieu_holiday(news_days);
         }
         //更新员工表里的年假/调休假天数
