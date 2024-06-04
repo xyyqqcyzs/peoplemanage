@@ -3,6 +3,7 @@ package com.sawyer.service.Impl;
 import com.sawyer.dao.EmpDAO;
 import com.sawyer.entity.Career;
 import com.sawyer.entity.Employee;
+import com.sawyer.entity.Holiday;
 import com.sawyer.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,5 +77,11 @@ public class EmpServiceImpl implements EmpService {
     public List<Employee> findbyall(Integer dep_ID, Integer pos_ID, Date datea, Date dateb,String entermode, String emp_type, Date confirm_datea,  Date confirm_dateb,String intern_situation){
         return empDAO.findbyall(dep_ID,pos_ID,datea,dateb,entermode,emp_type,confirm_datea,confirm_dateb,intern_situation);
     };
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public List<Employee> findbyprocess(String confirm_process) {
+        return empDAO.findbyprocess(confirm_process);
+    }
 
 }

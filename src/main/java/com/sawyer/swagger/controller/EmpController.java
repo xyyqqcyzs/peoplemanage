@@ -1,9 +1,8 @@
 package com.sawyer.swagger.controller;
 
 
-import com.sawyer.entity.Career;
-import com.sawyer.entity.Employee;
-import com.sawyer.entity.Findemp;
+import com.sawyer.entity.*;
+import com.sawyer.entity.Process;
 import com.sawyer.service.EmpService;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import java.io.File;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,6 +27,8 @@ public class EmpController {
 
     @Autowired
     private EmpService empService;
+
+    private Employee emp;
 
     //查询所有员工
     @GetMapping(value = "/findAll")
@@ -172,7 +174,6 @@ public class EmpController {
     @GetMapping(value = "/findbyID")
     public Employee findbyID(@RequestParam int id) {
         Employee emp = empService.findbyID(id);
-        
         return emp;
     }
 
@@ -188,5 +189,56 @@ public class EmpController {
         empService.update(emp);
         return ResponseEntity.ok("更新成功");
     }
+    //通过转正申请状态查询
+    @PostMapping(value = "/findbyprocess")
+    public List<Employee> findbyprocess(@RequestParam String confirm_process) {
+        List<Employee> allList = empService.findbyprocess(confirm_process);
+        return allList;
+    }
+
+    //转正申请
+    @PostMapping(value = "/apply")
+    public ResponseEntity<String> apply(@RequestBody Process pro) {
+        int idd = pro.getId();
+        Date confirm_date = pro.getDate();
+        Employee emp = empService.findbyID(idd);
+        Date date = emp.getDate();
+        long dateDiff = ChronoUnit.DAYS.between(date.toLocalDate(),confirm_date.toLocalDate());
+        int dateDiffInteger = Long.valueOf(dateDiff).intValue();
+        if(dateDiffInteger >= 90){
+            emp.setConfirm_process("待处理");
+            empService.update(emp);
+            return ResponseEntity.ok("已成功发出申请");
+        }
+        else{
+            return ResponseEntity.ok("实习时间不足三个月,已拒绝申请");
+        }
+    }
+
+    //试用期转正
+    @PostMapping(value = "/confirm")
+    public ResponseEntity<String> confirm(@RequestBody Process pro) {
+        int idd = pro.getId();
+        Date confirm_date = pro.getDate();
+        Employee emp = empService.findbyID(idd);
+        emp.setConfirm_date(confirm_date);
+        emp.setConfirm_process("已处理");
+        emp.setIntern_situation("已转正");
+        emp.setEmp_type("正式员工");
+        empService.update(emp);
+        return ResponseEntity.ok("已处理");
+    }
+
+    //拒绝试用期转正
+    @PostMapping(value = "/reject")
+    public ResponseEntity<String> reject(@RequestBody Process pro) {
+        int idd = pro.getId();
+        Date confirm_date = pro.getDate();
+        Employee emp = empService.findbyID(idd);
+        emp.setConfirm_process("已拒绝");
+        empService.update(emp);
+        return ResponseEntity.ok("已处理");
+    }
+
 
 }

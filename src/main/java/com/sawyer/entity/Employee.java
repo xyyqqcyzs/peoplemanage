@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.lang.reflect.Field;
 import java.sql.Date;
 
 import com.sawyer.entity.init.CustomSqlDateDeserializer;
@@ -38,6 +39,17 @@ public class Employee {
     private Date confirm_date;
     private String intern_situation;
     private String intern_detail;
+    private String confirm_process;
+    private Integer annual_holiday;
+
+    private  Integer lieu_holiday;
+
+    public Integer getPropertyValue(Object obj, String propertyName) throws NoSuchFieldException, IllegalAccessException {
+        Field field = obj.getClass().getDeclaredField(propertyName);
+        field.setAccessible(true);
+        return (Integer) field.get(obj);
+    }
+
     public void get_after_dep_ID(int mov_dep_ID) {
         this.dep_ID = mov_dep_ID;
     }

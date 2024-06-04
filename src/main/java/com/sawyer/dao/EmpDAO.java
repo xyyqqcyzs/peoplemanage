@@ -31,4 +31,6 @@ public interface EmpDAO {
     List<Employee> findbyall(@Param("dep_ID") Integer dep_ID, @Param("pos_ID") Integer pos_ID,
                                     @Param("datea") Date datea, @Param("dateb") Date dateb, @Param("entermode") String entermode, @Param("emp_type") String emp_type,
                                     @Param("confirm_datea") Date confirm_datea, @Param("confirm_dateb") Date confirm_dateb,@Param("intern_situation") String intern_situation);
+
+    List<Employee> findbyprocess(String confirm_process);
 }
