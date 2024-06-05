@@ -1,8 +1,8 @@
 package com.sawyer.swagger.controller;
 
-import com.sawyer.entity.Dimission;
+import com.sawyer.entity.*;
+import com.sawyer.entity.Process;
 import com.sawyer.service.EmpService;
-import com.sawyer.entity.ResponseMessage;
 import com.sawyer.service.DimService;
 import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -26,10 +26,13 @@ public class DimController {
     @Autowired
     private DimService dimService;
 
+    @Autowired
+    private EmpService empService;
+    private Employee emp;
+
     @GetMapping(value = "/findAll")
     public List<Dimission> findAll() {
         List<Dimission> allList = dimService.findAll();
-        System.out.println(allList);
         return allList;
     }
 
@@ -37,6 +40,38 @@ public class DimController {
     public ResponseEntity<String> add(@RequestBody Dimission dim) {
         dimService.add(dim);
         return ResponseEntity.ok("添加成功");
+    }
+
+    @PostMapping(value = "/process")
+    public ResponseEntity<String> process(@RequestBody Process process) {
+        int idd = process.getId();
+        java.sql.Date date = process.getDate();
+        Dimission dim = dimService.findbyID(idd);
+        int id = dim.getEmp_ID();
+        //this.emp = empService.findbyID(id);
+        empService.delete(id);
+        dim.setProcess_date(date);
+        dim.setProcess_state("已处理");
+        dimService.update(dim);
+        return ResponseEntity.ok("已处理");
+    }
+
+    @PostMapping(value="/reject")
+    public ResponseEntity<String> reject(@RequestBody Process process) {
+        int idd = process.getId();
+        java.sql.Date date = process.getDate();
+        Dimission dim = dimService.findbyID(idd);
+        dim.setProcess_date(date);
+        dim.setProcess_state("已拒绝");
+        dimService.update(dim);
+        return ResponseEntity.ok("已处理");
+    }
+
+
+    @PutMapping(value = "/update")//更新值不能为空
+    public ResponseEntity<String> update(@RequestBody Dimission dim) {
+        dimService.update(dim);
+        return ResponseEntity.ok("更新成功");
     }
 
     @GetMapping(value = "/delete")
@@ -54,8 +89,14 @@ public class DimController {
     }
 
     @GetMapping(value = "/findbyID")
-    public Dimission findbyID(@RequestParam int emp_ID) {
-        Dimission dim = dimService.findbyID(emp_ID);
+    public Dimission findbyID(@RequestParam int dim_ID) {
+        Dimission dim = dimService.findbyID(dim_ID);
+        return dim;
+    }
+
+    @GetMapping(value = "/findbyemp")
+    public Dimission findbyemp(@RequestParam int emp_ID) {
+        Dimission dim = dimService.findbyemp(emp_ID);
         return dim;
     }
 
@@ -75,6 +116,5 @@ public class DimController {
         return dimService.findByDateRange(startDate, endDate);
 
     }
-
 
 }

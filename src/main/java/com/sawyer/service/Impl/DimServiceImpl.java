@@ -1,9 +1,10 @@
-package com.sawyer.service;
+package com.sawyer.service.Impl;
 
 import com.sawyer.dao.DimissionDAO;
 import com.sawyer.entity.Dimission;
 
 
+import com.sawyer.service.DimService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -15,7 +16,7 @@ import java.util.Date;
 
 @Service
 @Transactional
-public class DimServiceImpl implements DimService{
+public class DimServiceImpl implements DimService {
 
     @Autowired
     private DimissionDAO dimissionDAO;
@@ -28,14 +29,18 @@ public class DimServiceImpl implements DimService{
     public void add(Dimission dim) {dimissionDAO.add(dim);}
 
     @Override
-    public void deleteEmployee(int id) {dimissionDAO.deleteEmployee(id);}
+    public void delete(int id) {dimissionDAO.delete(id);}
 
     @Override
-    public void delete(int id) {dimissionDAO.delete(id);}
+    public void update(Dimission dim) {dimissionDAO.update(dim);}
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
     public Dimission findbyID(int emp_ID) {return dimissionDAO.findbyID(emp_ID);}
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public Dimission findbyemp(int emp_ID) {return dimissionDAO.findbyemp(emp_ID);}
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
@@ -59,5 +64,3 @@ public class DimServiceImpl implements DimService{
         return dimissionDAO.findByDateRange(startDate, endDate);
     }
 }
-
-

@@ -10,16 +10,17 @@ public interface DimService {
     List<Dimission> findAll();
 
     void add(Dimission dim);
-    void deleteEmployee(int emp_ID);
 
     void delete(int id);
 
-    Dimission findbyID(int emp_ID);
+    void update(Dimission dim);
+
+    Dimission findbyID(int dim_ID);
 
     List<Dimission> findbypos(int pos_ID);
 
     List<Dimission> findbydep(int dep_ID);
-
     List<Dimission> findByDateRange(Date startDate, Date endDate);
 
+    Dimission findbyemp(int emp_Id);
 }

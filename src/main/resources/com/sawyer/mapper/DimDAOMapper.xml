@@ -4,39 +4,45 @@
 
     <!-- 查询离职员工信息 -->
     <select id="findAll" resultType="Dimission">
-        select dim.emp_ID,dim.dim_date,dim.dim_reason,emp.emp_name,emp.gender,emp.dep_ID,dep.dep_name,emp.pos_ID,pos.pos_name,emp.date,emp.confirm_date
+        select dim.dim_ID,dim.emp_ID,dim.process_date,dim.reason,emp.emp_name,emp.gender,emp.dep_ID,dep.dep_name,emp.pos_ID,pos.pos_name,emp.date,emp.confirm_date,dim.process_state
             from dimission dim
             JOIN employee emp ON dim.emp_ID = emp.emp_ID
             JOIN department dep ON emp.dep_ID = dep.dep_ID
             JOIN position pos ON emp.pos_ID = pos.pos_ID
     </select>
 
-    <!--    添加离职人员 -->
+    <!--    添加离职申请 -->
     <insert id="add" parameterType="Dimission">
-        insert into dimission(emp_ID, dim_date, dim_reason ) values (#{emp_ID}, #{dim_date}, #{dim_reason} )
-        DELETE FROM employee WHERE emp_ID = #{emp_ID};
+        insert into dimission(dim_ID, emp_ID, reason ) values (#{dim_ID},#{emp_ID}, #{reason} )
     </insert>
 
-    <!--    删除离职人员 -->
+    <!--    删除离职记录 -->
     <delete id="delete" parameterType="int">
-        delete from dimission_emp where emp_ID = #{emp_ID}
+        delete from dimission where dim_ID = #{dim_ID}
     </delete>
 
     <!--    根据ID查询离职人员-->
     <select id="findbyID" parameterType="int" resultType="Dimission">
-        select dim.emp_ID,dim.dim_date,dim.dim_reason,emp.emp_name,emp.gender,emp.dep_ID,dep.dep_name,emp.pos_ID,pos.pos_name,emp.date,emp.confirm_date
+        select dim.dim_ID,dim.emp_ID,dim.process_date,dim.reason,emp.emp_name,emp.gender,emp.dep_ID,dep.dep_name,emp.pos_ID,pos.pos_name,emp.date,emp.confirm_date,dim.process_state
         from dimission dim
             JOIN employee emp ON dim.emp_ID = emp.emp_ID
             JOIN department dep ON emp.dep_ID = dep.dep_ID
             JOIN position pos ON emp.pos_ID = pos.pos_ID
+        WHERE dim.dim_ID = #{dim_ID};
+    </select>
+
+    <select id="findbyemp" parameterType="int" resultType="Dimission">
+        select dim.dim_ID,dim.emp_ID,dim.process_date,dim.reason,emp.emp_name,emp.gender,emp.dep_ID,dep.dep_name,emp.pos_ID,pos.pos_name,emp.date,emp.confirm_date,dim.process_state
+        from dimission dim
+                 JOIN employee emp ON dim.emp_ID = emp.emp_ID
+                 JOIN department dep ON emp.dep_ID = dep.dep_ID
+                 JOIN position pos ON emp.pos_ID = pos.pos_ID
         WHERE dim.emp_ID = #{emp_ID};
     </select>
 
     <!--    按岗位查找    -->
     <select id="findbypos" parameterType="int" resultType="com.sawyer.entity.Dimission">
-        SELECT dim.emp_ID, dim.dim_date, dim.dim_reason,
-               emp.emp_name, emp.gender, emp.dep_ID, dep.dep_name,
-               emp.pos_ID, pos.pos_name, emp.date, emp.confirm_date
+        select dim.dim_ID,dim.emp_ID,dim.process_date,dim.reason,emp.emp_name,emp.gender,emp.dep_ID,dep.dep_name,emp.pos_ID,pos.pos_name,emp.date,emp.confirm_date,dim.process_state
         FROM dimission dim
                  JOIN employee emp ON dim.emp_ID = emp.emp_ID
                  JOIN department dep ON emp.dep_ID = dep.dep_ID
@@ -46,9 +52,7 @@
 
     <!--    按部门查找    -->
     <select id="findbydep" parameterType="int" resultType="com.sawyer.entity.Dimission">
-        SELECT dim.emp_ID, dim.dim_date, dim.dim_reason,
-               emp.emp_name, emp.gender, emp.dep_ID, dep.dep_name,
-               emp.pos_ID, pos.pos_name, emp.date, emp.confirm_date
+        select dim.dim_ID,dim.emp_ID,dim.process_date,dim.reason,emp.emp_name,emp.gender,emp.dep_ID,dep.dep_name,emp.pos_ID,pos.pos_name,emp.date,emp.confirm_date,dim.process_state
         FROM dimission dim
                  JOIN employee emp ON dim.emp_ID = emp.emp_ID
                  JOIN department dep ON emp.dep_ID = dep.dep_ID
@@ -59,26 +63,29 @@
 
     <!--    按日期查找   -->
     <select id="findByDateRange" parameterType="map" resultType="com.sawyer.entity.Dimission">
-        SELECT dim.emp_ID, dim.dim_date, dim.dim_reason,
-        emp.emp_name, emp.gender, emp.dep_ID, dep.dep_name,
-        emp.pos_ID, pos.pos_name, emp.date, emp.confirm_date
+        select dim.dim_ID,dim.emp_ID,dim.process_date,dim.reason,emp.emp_name,emp.gender,emp.dep_ID,dep.dep_name,emp.pos_ID,pos.pos_name,emp.date,emp.confirm_date,dim.process_state
         FROM dimission dim
         JOIN employee emp ON dim.emp_ID = emp.emp_ID
         JOIN department dep ON emp.dep_ID = dep.dep_ID
         JOIN position pos ON emp.pos_ID = pos.pos_ID
         <where>
             <if test="startDate != null and endDate != null">
-                AND dim.dim_date BETWEEN #{startDate} AND #{endDate}
+                AND dim.process_date BETWEEN #{startDate} AND #{endDate}
             </if>
             <if test="startDate != null and endDate == null">
-                AND dim.dim_date &gt;= #{startDate}
+                AND dim.process_date &gt;= #{startDate}
             </if>
             <if test="startDate == null and endDate != null">
-                AND dim.dim_date &lt;= #{endDate}
+                AND dim.process_date &lt;= #{endDate}
             </if>
         </where>
     </select>
-
-
-
+    <update id="update" parameterType="Dimission">
+        update dimission
+        <set>
+            <if test="process_date != null">process_date = #{process_date},</if>
+            <if test="process_state != null">process_state = #{process_state},</if>
+        </set>
+        where dim_ID = #{dim_ID}
+    </update>
 </mapper>
