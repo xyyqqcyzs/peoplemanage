@@ -190,7 +190,7 @@ public class EmpController {
         return ResponseEntity.ok("更新成功");
     }
     //通过转正申请状态查询
-    @PostMapping(value = "/findbyprocess")
+    @GetMapping(value = "/findbyprocess")
     public List<Employee> findbyprocess(@RequestParam String confirm_process) {
         List<Employee> allList = empService.findbyprocess(confirm_process);
         return allList;

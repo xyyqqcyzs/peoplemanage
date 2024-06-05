@@ -74,8 +74,8 @@
         from employee
         WHERE emp_ID = #{emp_ID};
     </select>
-    <select id="findbyall" resultType="Employee" parameterType="map">
-        select emp.emp_ID, emp.emp_name, emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail,emp.confirm_process,emp.annual_holiday,emp.lieu_holiday
+    <select id="findbyall" resultType="Employee">
+        select emp.emp_ID, emp.emp_name,emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail,emp.confirm_process,emp.annual_holiday,emp.lieu_holiday
         from employee emp
         JOIN department dep ON emp.dep_ID = dep.dep_ID
         JOIN position pos ON emp.pos_ID = pos.pos_ID
@@ -106,15 +106,6 @@
             </if>
             <if test="intern_situation != null">
                 <![CDATA[AND emp.intern_situation = #{intern_situation} ]]>
-            </if>
-            <if test="confirm_process != null">
-                <![CDATA[AND emp.confirm_process = #{confirm_process} ]]>
-            </if>
-            <if test="annual_holiday != null">
-                <![CDATA[AND emp.annual_holiday = #{annual_holiday} ]]>
-            </if>
-            <if test="lieu_holiday != null">
-                <![CDATA[AND emp.lieu_holiday = #{lieu_holiday} ]]>
             </if>
         </where>
     </select>
