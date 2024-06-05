@@ -74,7 +74,7 @@ public class DimController {
         return ResponseEntity.ok("更新成功");
     }
 
-    @GetMapping(value = "/delete")
+    @DeleteMapping(value = "/delete")
     public ResponseEntity<String> delete(@RequestParam int id) {
         try {
             dimService.delete(id);
