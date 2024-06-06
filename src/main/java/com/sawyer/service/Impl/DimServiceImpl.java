@@ -4,6 +4,7 @@ import com.sawyer.dao.DimissionDAO;
 import com.sawyer.entity.Dimission;
 
 
+import com.sawyer.entity.Holiday;
 import com.sawyer.service.DimService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,5 +63,10 @@ public class DimServiceImpl implements DimService {
 //            return dimissionDAO.findByDateRange(startDate, endDate);
 
         return dimissionDAO.findByDateRange(startDate, endDate);
+    }
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public List<Dimission> findbyprocess(String process_state) {
+        return dimissionDAO.findbyprocess(process_state);
     }
 }

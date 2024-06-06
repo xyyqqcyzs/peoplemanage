@@ -21,4 +21,6 @@ public interface DimissionDAO {
     List<Dimission> findbydep(int dep_ID);
     List<Dimission> findByDateRange(Date startDate, Date endDate);
     Dimission findbyemp(int emp_ID);
+
+    List<Dimission> findbyprocess(String process_state);
 }

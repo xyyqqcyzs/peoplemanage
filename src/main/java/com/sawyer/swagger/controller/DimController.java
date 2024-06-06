@@ -117,4 +117,10 @@ public class DimController {
 
     }
 
+    @GetMapping(value = "/findbyprocess")
+    public List<Dimission> findbyprocess(@RequestParam String process_state) {
+        List<Dimission> allList = dimService.findbyprocess(process_state);
+        return allList;
+    }
+
 }

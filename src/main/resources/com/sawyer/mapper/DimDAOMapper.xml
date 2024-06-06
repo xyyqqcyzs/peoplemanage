@@ -31,6 +31,15 @@
         WHERE dim.dim_ID = #{dim_ID};
     </select>
 
+    <select id="findbyprocess" parameterType="String" resultType="Dimission">
+        select dim.dim_ID,dim.emp_ID,dim.process_date,dim.reason,emp.emp_name,emp.gender,emp.dep_ID,dep.dep_name,emp.pos_ID,pos.pos_name,emp.date,emp.confirm_date,dim.process_state
+        from dimission dim
+                 JOIN employee emp ON dim.emp_ID = emp.emp_ID
+                 JOIN department dep ON emp.dep_ID = dep.dep_ID
+                 JOIN position pos ON emp.pos_ID = pos.pos_ID
+        WHERE dim.process_state = #{process_state};
+    </select>
+
     <select id="findbyemp" parameterType="int" resultType="Dimission">
         select dim.dim_ID,dim.emp_ID,dim.process_date,dim.reason,emp.emp_name,emp.gender,emp.dep_ID,dep.dep_name,emp.pos_ID,pos.pos_name,emp.date,emp.confirm_date,dim.process_state
         from dimission dim

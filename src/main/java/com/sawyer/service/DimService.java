@@ -23,4 +23,6 @@ public interface DimService {
     List<Dimission> findByDateRange(Date startDate, Date endDate);
 
     Dimission findbyemp(int emp_Id);
+
+    List<Dimission> findbyprocess(String process_state);
 }
