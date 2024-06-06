@@ -25,4 +25,8 @@ public interface DimService {
     Dimission findbyemp(int emp_Id);
 
     List<Dimission> findbyprocess(String process_state);
+
+    void insert(Dimission dim);
+
+    List<Dimission> finddimissed();
 }

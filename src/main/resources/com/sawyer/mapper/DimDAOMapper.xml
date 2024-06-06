@@ -10,10 +10,19 @@
             JOIN department dep ON emp.dep_ID = dep.dep_ID
             JOIN position pos ON emp.pos_ID = pos.pos_ID
     </select>
+    <select id="finddimissed" resultType="Dimission">
+        select id as dim_ID,emp_ID,emp_name,gender,dep_ID,dep_name,pos_ID,pos_name,date,confirm_date,dim_date as process_date,reason,process_state
+        from dimissed
+    </select>
 
     <!--    添加离职申请 -->
     <insert id="add" parameterType="Dimission">
         insert into dimission(dim_ID, emp_ID, reason ) values (#{dim_ID},#{emp_ID}, #{reason} )
+    </insert>
+
+    <insert id="insert" parameterType="Dimission">
+        insert into dimissed(id,emp_ID,emp_name,gender,dep_ID,dep_name,pos_ID,pos_name,date,confirm_date,dim_date,reason,process_state)
+        values (#{dim_ID},#{emp_ID}, #{emp_name},#{gender},#{dep_ID},#{dep_name},#{pos_ID},#{pos_name},#{date},#{confirm_date},#{process_date},#{reason},#{process_state} )
     </insert>
 
     <!--    删除离职记录 -->

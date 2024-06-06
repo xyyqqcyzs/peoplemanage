@@ -23,4 +23,8 @@ public interface DimissionDAO {
     Dimission findbyemp(int emp_ID);
 
     List<Dimission> findbyprocess(String process_state);
+
+    void insert(Dimission dim);
+
+    List<Dimission> finddimissed();
 }

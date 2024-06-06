@@ -25,9 +25,14 @@ public class DimServiceImpl implements DimService {
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
     public List<Dimission> findAll() {return dimissionDAO.findAll();}
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public List<Dimission> finddimissed(){return dimissionDAO.finddimissed();};
 
     @Override
     public void add(Dimission dim) {dimissionDAO.add(dim);}
+    @Override
+    public void insert(Dimission dim){dimissionDAO.insert(dim);};
 
     @Override
     public void delete(int id) {dimissionDAO.delete(id);}

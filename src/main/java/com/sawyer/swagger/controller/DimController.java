@@ -48,10 +48,10 @@ public class DimController {
         java.sql.Date date = process.getDate();
         Dimission dim = dimService.findbyID(idd);
         int id = dim.getEmp_ID();
-        //this.emp = empService.findbyID(id);
+        dim.setProcess_state("已处理");
+        dimService.insert(dim);
         empService.delete(id);
         dim.setProcess_date(date);
-        dim.setProcess_state("已处理");
         dimService.update(dim);
         return ResponseEntity.ok("已处理");
     }
@@ -120,6 +120,11 @@ public class DimController {
     @GetMapping(value = "/findbyprocess")
     public List<Dimission> findbyprocess(@RequestParam String process_state) {
         List<Dimission> allList = dimService.findbyprocess(process_state);
+        return allList;
+    }
+    @GetMapping(value = "/finddimissed")
+    public List<Dimission> finddimissed() {
+        List<Dimission> allList = dimService.finddimissed();
         return allList;
     }
 
