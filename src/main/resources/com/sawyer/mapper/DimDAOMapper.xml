@@ -81,20 +81,17 @@
 
     <!--    按日期查找   -->
     <select id="findByDateRange" parameterType="map" resultType="com.sawyer.entity.Dimission">
-        select dim.dim_ID,dim.emp_ID,dim.process_date,dim.reason,emp.emp_name,emp.gender,emp.dep_ID,dep.dep_name,emp.pos_ID,pos.pos_name,emp.date,emp.confirm_date,dim.process_state
-        FROM dimission dim
-        JOIN employee emp ON dim.emp_ID = emp.emp_ID
-        JOIN department dep ON emp.dep_ID = dep.dep_ID
-        JOIN position pos ON emp.pos_ID = pos.pos_ID
+        select id as dim_ID,emp_ID,emp_name,gender,dep_ID,dep_name,pos_ID,pos_name,date,confirm_date,dim_date as process_date,reason,process_state
+        from dimissed
         <where>
             <if test="startDate != null and endDate != null">
-                AND dim.process_date BETWEEN #{startDate} AND #{endDate}
+                AND dim_date BETWEEN #{startDate} AND #{endDate}
             </if>
             <if test="startDate != null and endDate == null">
-                AND dim.process_date &gt;= #{startDate}
+                AND dim_date &gt;= #{startDate}
             </if>
             <if test="startDate == null and endDate != null">
-                AND dim.process_date &lt;= #{endDate}
+                AND dim_date &lt;= #{endDate}
             </if>
         </where>
     </select>
