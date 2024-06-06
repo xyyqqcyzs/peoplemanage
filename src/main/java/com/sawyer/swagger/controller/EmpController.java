@@ -251,6 +251,16 @@ public class EmpController {
             return ResponseEntity.ok("登陆失败");
         }
     }
+    @PostMapping(value = "/setpassword")
+    public ResponseEntity<String> setpassword(@RequestBody Password pas) {
+        int emp_ID = pas.getEmp_ID();
+        String password = pas.getPassword();
+        Employee emp = empService.findbyID(emp_ID);
+        emp.setPassword(password);
+        empService.update(emp);
+        return ResponseEntity.ok("修改成功");
+    }
+
 
 
 }

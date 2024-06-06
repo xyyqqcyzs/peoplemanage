@@ -4,7 +4,7 @@
 
     <!-- 查询所有员工信息 -->
     <select id="findAll" resultType="Employee">
-        select emp.emp_ID, emp.emp_name, emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail,emp.confirm_process,emp.annual_holiday,emp.lieu_holiday
+        select emp.emp_ID, emp.emp_name, emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail,emp.confirm_process,emp.annual_holiday,emp.lieu_holiday,emp.password
         from employee emp
         JOIN department dep ON emp.dep_ID = dep.dep_ID
         JOIN position pos ON emp.pos_ID = pos.pos_ID
@@ -12,8 +12,8 @@
 
     <!-- 添加员工信息 -->
     <insert id="add" parameterType="Employee">
-        INSERT INTO employee(emp_ID, emp_name,gender, dep_ID, pos_ID, date, entermode, birthday, phone, email, address, work_experience, academic_background, emp_type, confirm_date, intern_situation, intern_detail,confirm_process,annual_holiday,lieu_holiday)
-        VALUES (#{emp_ID}, #{emp_name},#{gender}, #{dep_ID}, #{pos_ID}, #{date}, #{entermode}, #{birthday}, #{phone}, #{email}, #{address}, #{work_experience}, #{academic_background}, #{emp_type}, #{confirm_date}, #{intern_situation}, #{intern_detail},#{confirm_process},#{annual_holiday},#{lieu_holiday});
+        INSERT INTO employee(emp_ID, emp_name,gender, dep_ID, pos_ID, date, entermode, birthday, phone, email, address, work_experience, academic_background, emp_type, confirm_date, intern_situation, intern_detail,confirm_process,annual_holiday,lieu_holiday,password)
+        VALUES (#{emp_ID}, #{emp_name},#{gender}, #{dep_ID}, #{pos_ID}, #{date}, #{entermode}, #{birthday}, #{phone}, #{email}, #{address}, #{work_experience}, #{academic_background}, #{emp_type}, #{confirm_date}, #{intern_situation}, #{intern_detail},#{confirm_process},#{annual_holiday},#{lieu_holiday},#{password});
     </insert>
 
     <!-- 删除员工信息 -->
@@ -23,7 +23,7 @@
 
     <!-- 根据员工ID查询员工信息 -->
     <select id="findbyID" parameterType="int" resultType="Employee">
-        select emp.emp_ID, emp.emp_name,emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail,emp.confirm_process,emp.annual_holiday,emp.lieu_holiday
+        select emp.emp_ID, emp.emp_name,emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail,emp.confirm_process,emp.annual_holiday,emp.lieu_holiday,emp.password
         from employee emp
         JOIN department dep ON emp.dep_ID = dep.dep_ID
         JOIN position pos ON emp.pos_ID = pos.pos_ID
@@ -31,7 +31,7 @@
     </select>
 
     <select id="findbyprocess" parameterType="String" resultType="Employee">
-        select emp.emp_ID, emp.emp_name,emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail,emp.confirm_process,emp.annual_holiday,emp.lieu_holiday
+        select emp.emp_ID, emp.emp_name,emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail,emp.confirm_process,emp.annual_holiday,emp.lieu_holiday,emp.password
         from employee emp
                  JOIN department dep ON emp.dep_ID = dep.dep_ID
                  JOIN position pos ON emp.pos_ID = pos.pos_ID
@@ -40,7 +40,7 @@
 
     <!-- 根据部门ID查询员工信息 -->
     <select id="findbydep" parameterType="int" resultType="Employee">
-        select emp.emp_ID, emp.emp_name,emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail,emp.confirm_process,emp.annual_holiday,emp.lieu_holiday
+        select emp.emp_ID, emp.emp_name,emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail,emp.confirm_process,emp.annual_holiday,emp.lieu_holiday,emp.password
         from employee emp
         JOIN department dep ON emp.dep_ID = dep.dep_ID
         JOIN position pos ON emp.pos_ID = pos.pos_ID
@@ -48,7 +48,7 @@
     </select>
 
     <select id="findbypos" parameterType="int" resultType="Employee">
-        select emp.emp_ID, emp.emp_name, emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail,emp.confirm_process,emp.annual_holiday,emp.lieu_holiday
+        select emp.emp_ID, emp.emp_name, emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail,emp.confirm_process,emp.annual_holiday,emp.lieu_holiday,emp.password
         from employee emp
         JOIN department dep ON emp.dep_ID = dep.dep_ID
         JOIN position pos ON emp.pos_ID = pos.pos_ID
@@ -56,14 +56,14 @@
     </select>
 
     <select id="findbyMode" parameterType="String" resultType="Employee">
-        select emp.emp_ID, emp.emp_name, emp.gender,emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail,emp.confirm_process,emp.annual_holiday,emp.lieu_holiday
+        select emp.emp_ID, emp.emp_name, emp.gender,emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail,emp.confirm_process,emp.annual_holiday,emp.lieu_holiday,emp.password
         from employee emp
                  JOIN department dep ON emp.dep_ID = dep.dep_ID
                  JOIN position pos ON emp.pos_ID = pos.pos_ID
         WHERE entermode = #{mode};
     </select>
     <select id="findbyemptype" parameterType="String" resultType="Employee">
-        select emp.emp_ID, emp.emp_name,emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail,emp.confirm_process,emp.annual_holiday,emp.lieu_holiday
+        select emp.emp_ID, emp.emp_name,emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail,emp.confirm_process,emp.annual_holiday,emp.lieu_holiday,emp.password
         from employee emp
                  JOIN department dep ON emp.dep_ID = dep.dep_ID
                  JOIN position pos ON emp.pos_ID = pos.pos_ID
@@ -75,7 +75,7 @@
         WHERE emp_ID = #{emp_ID};
     </select>
     <select id="findbyall" resultType="Employee">
-        select emp.emp_ID, emp.emp_name,emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail,emp.confirm_process,emp.annual_holiday,emp.lieu_holiday
+        select emp.emp_ID, emp.emp_name,emp.gender, emp.dep_ID, dep.dep_name, emp.pos_ID, pos.pos_name, emp.date, emp.entermode,emp.birthday,emp.phone,emp.email,emp.address,emp.work_experience,emp.academic_background,emp.emp_type,emp.confirm_date,emp.intern_situation,emp.intern_detail,emp.confirm_process,emp.annual_holiday,emp.lieu_holiday,emp.password
         from employee emp
         JOIN department dep ON emp.dep_ID = dep.dep_ID
         JOIN position pos ON emp.pos_ID = pos.pos_ID
@@ -136,7 +136,8 @@
             <if test="intern_detail != null">intern_detail = #{intern_detail},</if>
             <if test="confirm_process != null">confirm_process = #{confirm_process},</if>
             <if test="annual_holiday != null">annual_holiday = #{annual_holiday},</if>
-            <if test="lieu_holiday != null">lieu_holiday = #{lieu_holiday}</if>
+            <if test="lieu_holiday != null">lieu_holiday = #{lieu_holiday},</if>
+            <if test="password != null">password = #{password}</if>
         </set>
         WHERE emp_ID = #{emp_ID};
     </update>

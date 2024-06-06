@@ -44,6 +44,8 @@ public class Employee {
 
     private  Float lieu_holiday;
 
+    private String password;
+
     public Integer getPropertyValue(Object obj, String propertyName) throws NoSuchFieldException, IllegalAccessException {
         Field field = obj.getClass().getDeclaredField(propertyName);
         field.setAccessible(true);
